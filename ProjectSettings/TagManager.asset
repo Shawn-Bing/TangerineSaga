@@ -41,6 +41,36 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground Bottom
+    uniqueID: 3792040345
+    locked: 0
+  - name: Ground Middle
+    uniqueID: 1015656137
+    locked: 0
+  - name: Ground Top
+    uniqueID: 1798632323
+    locked: 0
+  - name: Decoration Bottom
+    uniqueID: 1303776901
+    locked: 0
+  - name: Decoration Top
+    uniqueID: 2241272791
+    locked: 0
+  - name: Farm Land
+    uniqueID: 1925860909
+    locked: 0
+  - name: Farm Water
+    uniqueID: 3700597443
+    locked: 0
   - name: Instance
     uniqueID: 2705002123
+    locked: 0
+  - name: Front Bottom
+    uniqueID: 477787303
+    locked: 0
+  - name: Front Top
+    uniqueID: 3085951483
+    locked: 0
+  - name: Collision
+    uniqueID: 1030813169
     locked: 0
