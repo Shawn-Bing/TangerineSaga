@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 6876167437497463749}
   - component: {fileID: 1953915103692304974}
   - component: {fileID: 8705081388440563370}
+  - component: {fileID: 308158764377114724}
   m_Layer: 0
   m_Name: Trunk
   m_TagString: Untagged
@@ -245,6 +246,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 3, y: 1.2}
   m_Direction: 1
+--- !u!114 &308158764377114724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841526388483787780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0036ac447741d4ef4a00db315dbe507a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7484692501078507668
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +269,7 @@ GameObject:
   - component: {fileID: 6737389258397761893}
   - component: {fileID: 4853583412912718111}
   - component: {fileID: 3053878561179520697}
+  - component: {fileID: 4908321006471230796}
   m_Layer: 0
   m_Name: Leaves
   m_TagString: Untagged
@@ -351,3 +365,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4908321006471230796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7484692501078507668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0036ac447741d4ef4a00db315dbe507a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
