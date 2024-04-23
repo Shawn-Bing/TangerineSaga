@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 528959772}
   - component: {fileID: 528959771}
   - component: {fileID: 528959770}
+  - component: {fileID: 528959773}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -495,6 +496,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &528959773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528959767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8810c3e14e34adf9ef0f86380c34dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &856081692
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +771,7 @@ GameObject:
   - component: {fileID: 1722665954}
   - component: {fileID: 1722665953}
   - component: {fileID: 1722665955}
-  - component: {fileID: 1722665956}
+  - component: {fileID: 1722665958}
   - component: {fileID: 1722665957}
   m_Layer: 0
   m_Name: Virtual Camera
@@ -834,21 +847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1722665956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722665952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 0}
-  m_Damping: 0.5
-  m_MaxWindowSize: -1
 --- !u!114 &1722665957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,6 +859,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9707e5f0cbd5d423a9e8fa4bd347c102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1722665958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722665952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ConfineMode: 0
+  m_BoundingVolume: {fileID: 0}
+  m_BoundingShape2D: {fileID: 0}
+  m_ConfineScreenEdges: 1
+  m_Damping: 0
 --- !u!1 &1991345879
 GameObject:
   m_ObjectHideFlags: 0
