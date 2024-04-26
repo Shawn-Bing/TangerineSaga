@@ -20,11 +20,12 @@ public class ItemEditor : EditorWindow
         VisualElement root = rootVisualElement;
 
         // VisualElements objects can contain other VisualElement following a tree hierarchy.
-        VisualElement label = new Label("Hello World! From C#");
-        root.Add(label);
+        //VisualElement label = new Label("Hello World! From C#");
+        //root.Add(label);
 
         // Instantiate UXML
-        //VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
-        //root.Add(labelFromUXML);
+        //启用UI Builder中创建的界面
+        VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
+        root.Add(labelFromUXML);
     }
 }

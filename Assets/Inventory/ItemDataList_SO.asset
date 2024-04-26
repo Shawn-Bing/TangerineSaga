@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c439d34b11f4ee880e9a9eac697c8e, type: 3}
   m_Name: ItemDataList_SO
   m_EditorClassIdentifier: 
-  itemDetailsList: []
+  itemDetailsList:
+  - itemID: 0
+    name: 
+    itemDescription: 
+    itemIcon: {fileID: 0}
+    itemType: 0
+    itemOnWorldSprite: {fileID: 0}
+    canPickedUp: 0
+    canDropped: 0
+    canCarried: 0
+    itemUseRadius: 0
+    itemPrice: 0
+    sellDiscount: 0
