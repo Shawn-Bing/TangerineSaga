@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,8 +7,8 @@ public class ItemEditor : EditorWindow
 {
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
+    [MenuItem("Shawn/ItemEditor")]//对编辑器做更改，修改工具路径
 
-    [MenuItem("Shawn/ItemEditor")]
     public static void ShowExample()
     {
         ItemEditor wnd = GetWindow<ItemEditor>();
