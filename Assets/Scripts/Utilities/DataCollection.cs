@@ -4,7 +4,7 @@ public class ItemDetails
 {
     [Header("物品详情")]
     public int itemID;
-    public string name;
+    public string itemName;
     public string itemDescription;
     public Sprite itemIcon;
     public ItemType itemType;
