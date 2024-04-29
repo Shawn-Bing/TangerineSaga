@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class ItemEditor : EditorWindow
 {
@@ -12,7 +13,9 @@ public class ItemEditor : EditorWindow
     private ItemDataList_SO dataBase;
     private List<ItemDetails> itemList = new List<ItemDetails>();//创建并初始化左侧的列表
     private VisualTreeAsset itemRowTemplate;//实例化模板
-    private ListView itemListView;//存放VisualElement
+    private ListView itemListView;//左侧ListView变量
+    private ScrollView itemDetailsSection;//右侧详情区域变量
+    private ItemDetails activeItem;//存放 选择item时在右侧显示具体信息 的变量
 
     [MenuItem("Shawn/ItemEditor")]//对编辑器做更改，修改工具路径
 
@@ -25,24 +28,18 @@ public class ItemEditor : EditorWindow
 
     public void CreateGUI()
     {
-        // Each editor window contains a root VisualElement object
         VisualElement root = rootVisualElement;
 
         // Instantiate UXML 启用UI Builder中创建的界面
-
-        //下方代码的另一种写法：
-        //var VisualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/UI Builder/ItemEditor.uxml");
-        //VisualElement labelFromUXML = VisualTree.Instantiate();
-        //root.Add(labelFromUXML);
-
         VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
         root.Add(labelFromUXML);
 
         //因为没挂载到物体上，需要用绝对路径获取模板数据
         itemRowTemplate = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/UI Builder/ItemRowTemplate.uxml");
 
-        //获取左侧ListView赋值给创建的变量
+        //获取左侧ListView、右侧ScrollView 并赋值给创建的变量
         itemListView = root.Q<VisualElement>("ItemList").Q<ListView>("ListView");
+        itemDetailsSection = root.Q<ScrollView>("ItemDetails");
 
         //执行加载数据
         LoadDataBase();
@@ -99,5 +96,48 @@ public class ItemEditor : EditorWindow
         itemListView.itemsSource = itemList;
         itemListView.makeItem = makeItem;
         itemListView.bindItem = bindItem;
+
+        //若选中某项，就获取详情
+        itemListView.selectionChanged += OnListSelectionChange;
+        //没选择时候(默认)设为不可见
+        itemDetailsSection.visible = false;
+            
+        }
+
+    // 当选中某一个item的时候的回调
+    private void OnListSelectionChange(IEnumerable<object> selectedItem)
+    {
+        if (selectedItem != null)
+        {
+            //First方法需要：System.Linq
+            activeItem = (ItemDetails)selectedItem.First();
+            GetItemDetails();
+            itemDetailsSection.visible = true;//选择就显示
+        }
+    }
+
+    // 绑定item内容
+    private void GetItemDetails()
+    {
+        // 用标记为脏数据的方式实现面板中数据的更改并同步到物品数据库中
+        itemDetailsSection.MarkDirtyRepaint();
+        
+        itemDetailsSection.Q<IntegerField>("itemID").value = activeItem.itemID;
+        // 回调函数，保证面板上的修改能同步到创建好的ItemDataList_SO(物品数据库)中
+        itemDetailsSection.Q<IntegerField>("itemID").RegisterValueChangedCallback((evt) =>
+        {
+            activeItem.itemID = evt.newValue;//赋值
+        });
+        
+        // 获得Name
+        itemDetailsSection.Q<TextField>("itemName").value = activeItem.itemName;
+        itemDetailsSection.Q<TextField>("itemName").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.itemName = evt.newValue;
+            itemListView.Rebuild();//右侧更新名称和图标时左侧重新绘制
+        });
+        
+        // 获得类型
+        itemDetailsSection.Q<EnumField>().value = activeItem.itemType;
     }
 }
