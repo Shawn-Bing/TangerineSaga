@@ -7,7 +7,6 @@ namespace T_Saga.Inventory
     public class Item : MonoBehaviour
     {
         public int itemID;
-
         public ItemDetails itemDetails;
         private SpriteRenderer spriteRenderer;
         private BoxCollider2D coll;
