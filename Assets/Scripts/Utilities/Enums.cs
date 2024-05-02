@@ -12,3 +12,9 @@ public enum SlotType
     Box,//箱子
     Shop//商店
 }
+
+//UI更新位置
+public enum InventoryLocation
+{
+    PlayerBag,Box,
+}

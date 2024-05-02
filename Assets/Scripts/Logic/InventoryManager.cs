@@ -14,6 +14,16 @@ namespace T_Saga.Inventory
         [Header("背包数据")]
         public InventoryRepo_SO playerBag;
 
+
+        /// <summary>
+        /// 在游戏开始时调用一次更新UI，应对读档情况
+        /// </summary>
+        private void Start()
+        {
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.PlayerBag, playerBag.itemList);
+        }
+
+
         // 通过ID查找物品信息
         public ItemDetails GetItemDetails(int ID)
         {
@@ -39,6 +49,8 @@ namespace T_Saga.Inventory
             {
                 Destroy(item.gameObject);//添加到背包后，摧毁这个（在地面的）物品
             }
+            //调用函数，更新背包或其他UI（实际实现不在这里）
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.PlayerBag, playerBag.itemList);
         }
 
         /// <summary>

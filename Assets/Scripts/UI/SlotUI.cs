@@ -41,11 +41,11 @@ namespace T_Saga
         /// <param name="amount">更新数量</param>
         public void UpdateSlot(ItemDetails item, int amount)
         {
-            //保存数据
+            // 保存数据
             itemDetails = item;
             itemAmount = amount;
 
-            //更新格子UI
+            // 更新格子UI，基本是逆清空操作
             slotImage.enabled = true;
             slotImage.sprite = item.itemIcon;
             moneyAmountText.text = amount.ToString();
@@ -61,12 +61,11 @@ namespace T_Saga
             {
                 isSelected = false;
             }
-
-            itemAmount = 0;
-
-            slotImage.enabled = false;
-            moneyAmountText.text = string.Empty;
-            button.interactable = false;
+            
+            itemAmount = 0;//设置数量为0
+            slotImage.enabled = false;//关闭图片显示
+            moneyAmountText.text = string.Empty;//清空文字
+            button.interactable = false;//取消按键可交互
         }
     }
 }
