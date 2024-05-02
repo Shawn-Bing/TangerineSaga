@@ -7,10 +7,15 @@ namespace T_Saga.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        [Header("玩家背包UI")]
+        [SerializeField] private GameObject bagUI;
+        private bool bagOpened;
+        
+        [Header("背包格子")]
         [SerializeField] private SlotUI[] playerSlots;
 
 
-        //注册调用事件
+        #region 注册调用事件
         private void OnEnable()
         {
             EventHandler.UpdateInventoryUI += OnUpdateInventoryUI;
@@ -21,6 +26,8 @@ namespace T_Saga.Inventory
             EventHandler.UpdateInventoryUI -= OnUpdateInventoryUI;
         }
 
+        #endregion
+        
         /// <summary>
         /// 更新背包UI显示
         /// </summary>
@@ -53,6 +60,26 @@ namespace T_Saga.Inventory
                 // 获取playerBag里的Slot序号并连接到UI部分
                 playerSlots[i].slotIndex = i;
             }
+            bagOpened = bagUI.activeInHierarchy;//获取背包状态(是否开启)
+        }
+
+        /// <summary>
+        /// 检测按下B键打开背包
+        /// </summary>
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                OpenBagUI();
+            }
+        }
+        /// <summary>
+        /// 切换打开&关闭背包
+        /// </summary>
+        public void OpenBagUI()
+        {
+            bagOpened = !bagOpened;
+            bagUI.SetActive(bagOpened);
         }
     }
 }
