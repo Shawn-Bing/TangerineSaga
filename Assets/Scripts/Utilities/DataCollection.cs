@@ -24,3 +24,11 @@ public class ItemDetails
 
 
 }
+//每个结构体都要序列化
+[System.Serializable]
+//创建结构体不需要判空，默认会给值
+public struct InventoryItem
+{
+    public int itemID;
+    public int itemAmount;
+}
