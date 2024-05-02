@@ -31,17 +31,77 @@ namespace T_Saga.Inventory
         /// <param name="toDestroy">摧毁物体(可选)</param>
         public void AddItem(Item item, bool toDestroy)
         { 
-            //新建一个物体且令其数量为1
-            InventoryItem newItem = new InventoryItem();
-            newItem.itemID = item.itemID;
-            newItem.itemAmount =  1;
-            //将物体添加到玩家背包第一个物品中
-            playerBag.itemList[0] = newItem;
+            var index = GetItemIndexInBag(item.itemID);
+            AddItemAtIndex(item.itemID, index, 1);//添加物品
             //测试代码
             Debug.Log("你捡起了ID为"+GetItemDetails(item.itemID).itemID + "的" + GetItemDetails(item.itemID).itemName);
             if (toDestroy)
             {
                 Destroy(item.gameObject);//添加到背包后，摧毁这个（在地面的）物品
+            }
+        }
+
+        /// <summary>
+        /// 检查背包是否有空位并返回序号,若数量为0说明有空位
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckBagCapacity()
+        {
+            for (int i = 0; i < playerBag.itemList.Count; i++)
+            {
+                if (playerBag.itemList[i].itemAmount == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 通过物品ID找到背包已有物品位置
+        /// </summary>
+        /// <param name="ID">物品ID</param>
+        /// <returns>若返回-1说明背包没有这个物品，若已存在则返回物品ID</returns>
+        private int GetItemIndexInBag(int ID)
+        {
+            for (int i = 0; i < playerBag.itemList.Count; i++)
+            {
+                if (playerBag.itemList[i].itemID == ID)
+                    return i;
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// 在背包指定位置添加物品
+        /// </summary>
+        /// <param name="ID">物品ID</param>
+        /// <param name="index">背包位置</param>
+        /// <param name="amount">物品数量</param>
+        private void AddItemAtIndex(int ID, int index, int amount)
+        {
+            // 背包没有这个物品且背包有容量
+            if (index == -1 && CheckBagCapacity())
+            {
+                var item = new InventoryItem
+                {
+                    itemID = ID,
+                    itemAmount = amount
+                };
+                for(int i = 0; i < playerBag.itemList.Count;i++)
+                {
+                    if(playerBag.itemList[i].itemID == 0)
+                    {
+                        playerBag.itemList[i] = item;
+                        break;
+                    }
+                }
+            }
+
+            // 背包内有这个物品，只增加Amount
+            else
+            {
+                int currentAmount = playerBag.itemList[index].itemAmount + amount;
+                var item = new InventoryItem { itemID = ID, itemAmount = currentAmount };
+                playerBag.itemList[index] = item;
             }
         }
     }
