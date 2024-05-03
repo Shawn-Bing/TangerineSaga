@@ -120,8 +120,38 @@ namespace T_Saga
         public void OnEndDrag(PointerEventData eventData)
         {
             inventoryUI.dragItem.enabled=false;
-            //输出指针碰到的object，为了能正确检测到slot，最好将Slot子物体的 RayCast Target都关闭
-            Debug.Log(eventData.pointerCurrentRaycast.gameObject);
+            // Debug测试输出指针碰到的object，为了能正确检测到slot，最好将Slot子物体的 RayCast Target都关闭
+             Debug.Log(eventData.pointerCurrentRaycast.gameObject);
+            if(eventData.pointerCurrentRaycast.gameObject != null)
+            {
+                if(eventData.pointerCurrentRaycast.gameObject.GetComponent<SlotUI>() == null)
+                return;
+
+                var targetSlot = eventData.pointerCurrentRaycast.gameObject.GetComponent<SlotUI>();
+                int targetIndex = targetSlot.slotIndex;
+
+                // 若拖拽范围在Player背包内，直接交换序号
+                if(slotType == SlotType.PlayerBag && targetSlot.slotType == SlotType.PlayerBag)
+                {
+                    InventoryManager.Instance.SwapItem(slotIndex, targetIndex);
+                }
+                
+                // 取消所有高亮
+                inventoryUI.UpdateSlotHighlight(-1);
+            }
+            
+            // 测试代码——扔在地上
+            else 
+            {
+               if (!itemDetails.canDropped)
+               return;
+               //若物体是可以扔的
+               else{
+                // 获取鼠标松开时的世界坐标（通过摄像机的方法）
+                var pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+                EventHandler.CallInstantiateItemInScene(itemDetails.itemID, pos);
+               }
+            }
         }
 
         #endregion

@@ -116,5 +116,31 @@ namespace T_Saga.Inventory
                 playerBag.itemList[index] = item;
             }
         }
+
+        /// <summary>
+        /// 交换物品序号以实现拖拽物品
+        /// </summary>
+        /// <param name="fromIndex">起始序号</param>
+        /// <param name="toIndex">目标序号</param>
+        public void SwapItem(int fromIndex, int toIndex)
+        {
+
+            InventoryItem currentItem = playerBag.itemList[fromIndex]; // 当前物品
+            InventoryItem targetItem = playerBag.itemList[toIndex]; // 目标物品
+
+            if(targetItem.itemID != 0)// 目标物品不为空
+            {
+                playerBag.itemList[fromIndex] = targetItem;
+                playerBag.itemList[toIndex] = currentItem;
+            }else
+            {
+                playerBag.itemList[toIndex] = currentItem;
+                playerBag.itemList[fromIndex] = new InventoryItem();
+            }
+
+            //  更新背包
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.PlayerBag, playerBag.itemList);
+        }
+    
     }
 }
