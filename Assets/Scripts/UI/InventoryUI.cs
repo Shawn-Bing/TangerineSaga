@@ -74,12 +74,33 @@ namespace T_Saga.Inventory
             }
         }
         /// <summary>
-        /// 切换打开&关闭背包
+        /// 切换打开&关闭背包UI
         /// </summary>
         public void OpenBagUI()
         {
             bagOpened = !bagOpened;
             bagUI.SetActive(bagOpened);
+        }
+        /// <summary>
+        /// 更新高亮并使高亮唯一
+        /// </summary>
+        /// <param name="index"></param>
+        public void UpdateSlotHighlight(int index)
+        {
+            foreach (var slot in playerSlots)
+            {
+                // 若格子被选中 且 格子编号=传入编号
+                if(slot.isSelected && slot.slotIndex == index)
+                {
+                    // 将格子设为高亮
+                    slot.slotHighlight.gameObject.SetActive(true);
+                }
+                else
+                {
+                    slot.isSelected= false;// 取消其他格子选中状态
+                    slot.slotHighlight.gameObject.SetActive(false);
+                }
+            }
         }
     }
 }

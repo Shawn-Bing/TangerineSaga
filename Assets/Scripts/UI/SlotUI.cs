@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;//TextMeshPro
+using UnityEngine.EventSystems;
+using T_Saga.Inventory;//Click事件
 
 namespace T_Saga
 {
-    public class SlotUI : MonoBehaviour
+    public class SlotUI : MonoBehaviour, IPointerClickHandler
     {
         // 不在Awake中获取组件，而是在Inspector中获取(更快)
         [Header("组件获取")]
         [SerializeField] private Image slotImage;
         [SerializeField] private TextMeshProUGUI moneyAmountText;
-        [SerializeField] public Image slotHighlight;
+        [SerializeField] public Image slotHighlight;//代码高亮
+        private InventoryUI inventoryUI => GetComponentInParent<InventoryUI>();//调节代码高亮所需
         [SerializeField] private Button button;
 
         [Header("格子参数")]
@@ -66,6 +69,13 @@ namespace T_Saga
             slotImage.enabled = false;//关闭图片显示
             moneyAmountText.text = string.Empty;//清空文字
             button.interactable = false;//取消按键可交互
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (itemAmount == 0) return;
+            isSelected = !isSelected; // 这里只切换选中状态，使选中唯一在InventoryUI中实现
+            inventoryUI.UpdateSlotHighlight(slotIndex);
         }
     }
 }
