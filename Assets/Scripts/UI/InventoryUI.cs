@@ -7,6 +7,11 @@ namespace T_Saga.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        [Header("拖拽图片")]
+        //记得在InventoryUI中给它赋值
+        //拖拽图Image属性不要勾选RayCast Target否则拖拽过程中遇到物体就会中断拖拽
+        public Image dragItem;
+        
         [Header("玩家背包UI")]
         [SerializeField] private GameObject bagUI;
         private bool bagOpened;
