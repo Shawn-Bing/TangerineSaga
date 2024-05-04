@@ -1,8 +1,20 @@
 public enum ItemType
 {
-Seed,Commodity,Furniture,//种子、商品、家具
-HoeTool,ChopTool,BreakTool,ReapToop,WaterTool,CollectTool,//各种工具
-ReapableScenery//可破坏场景物品，如杂草
+    #region 可买卖物品
+    Seed,//种子
+    Commodity,//农作物等
+    Furniture,//家具
+    #endregion
+
+    #region 耕作工具
+    //不可买卖
+    HoeTool,ChopTool,BreakTool,ReapTool,WaterTool,CollectTool,
+    #endregion
+
+    #region 可破坏物
+    //可破坏场景物品，如杂草等
+    ReapableScenery,
+    #endregion
 }
 
 //物品格子类型

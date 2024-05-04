@@ -141,6 +141,7 @@ namespace T_Saga
             }
             
             // 测试代码——扔在地上
+            //TODO:记得把它注释掉
             else 
             {
                if (!itemDetails.canDropped)

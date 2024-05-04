@@ -7,6 +7,9 @@ namespace T_Saga.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        [Header("物品提示")]
+        public ItemTips itemTips;
+
         [Header("拖拽图片")]
         //记得在InventoryUI中给它赋值
         //拖拽图Image属性不要勾选RayCast Target否则拖拽过程中遇到物体就会中断拖拽
