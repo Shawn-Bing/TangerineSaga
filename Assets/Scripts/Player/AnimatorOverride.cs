@@ -59,10 +59,6 @@ public class AnimatorOverride : MonoBehaviour
                 holdItem.sprite = itemDetails.itemOnWorldSprite;// 设置图片为选中图
                 holdItem.enabled = true;// 使图片可见
             }
-            // else
-            // {
-            //     holdItem.enabled = false;
-            // }
         }
 
         SwitchAnimator(currentType);
