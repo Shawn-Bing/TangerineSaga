@@ -32,3 +32,13 @@ public struct InventoryItem
     public int itemID;
     public int itemAmount;
 }
+
+[System.Serializable]
+///存放玩家动画类型,是空闲/举起 + 身体部位的排列组合，这个排列组合应当对应动画控制器
+public class AnimatorType
+
+{
+    public HoldType holdType;
+    public PartName partName;
+    public AnimatorOverrideController overrideController;
+}

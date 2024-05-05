@@ -30,3 +30,15 @@ public enum InventoryLocation
 {
     PlayerBag,Box,
 }
+
+//人物举起状态
+public enum HoldType
+{
+    None, Carry
+}
+  
+//人物身体部分名称
+public enum PartName
+{
+    Body, Hair, Arm, Tool
+}

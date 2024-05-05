@@ -66,7 +66,7 @@ MonoBehaviour:
     itemDescription: "\u4EA7\u81EA\u664B\u56FD\u79C0\u8363"
     itemIcon: {fileID: 21300000, guid: 21f88cda6c810402583055801e6a2c73, type: 3}
     itemType: 8
-    itemOnWorldSprite: {fileID: 0}
+    itemOnWorldSprite: {fileID: 21300000, guid: 21f88cda6c810402583055801e6a2c73, type: 3}
     canPickedUp: 1
     canDropped: 0
     canCarried: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
     itemDescription: "\u780D\u6389\u5927\u6811\u4E4B\u540E\u6389\u843D\u7684\u5B9D\u7269"
     itemIcon: {fileID: 21300000, guid: 5809980803ddf45a1aa8df14dbc00394, type: 3}
     itemType: 1
-    itemOnWorldSprite: {fileID: 0}
+    itemOnWorldSprite: {fileID: 21300000, guid: 5809980803ddf45a1aa8df14dbc00394, type: 3}
     canPickedUp: 1
     canDropped: 1
     canCarried: 0

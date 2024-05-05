@@ -86,6 +86,12 @@ namespace T_Saga
             if (itemAmount == 0) return;
             isSelected = !isSelected;
             inventoryUI.UpdateSlotHighlight(slotIndex);
+
+            if (slotType == SlotType.PlayerBag)
+            {
+                // 发出物品处于选中状态的信息，方便切换动画状态
+                EventHandler.CallItemSelectedEvent(itemDetails, isSelected);
+            }
         }
 
         /// <summary>
@@ -142,17 +148,17 @@ namespace T_Saga
             
             // 测试代码——扔在地上
             //TODO:记得把它注释掉
-            else 
-            {
-               if (!itemDetails.canDropped)
-               return;
-               //若物体是可以扔的
-               else{
-                // 获取鼠标松开时的世界坐标（通过摄像机的方法）
-                var pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
-                EventHandler.CallInstantiateItemInScene(itemDetails.itemID, pos);
-               }
-            }
+            // else 
+            // {
+            //    if (!itemDetails.canDropped)
+            //    return;
+            //    //若物体是可以扔的
+            //    else{
+            //     // 获取鼠标松开时的世界坐标（通过摄像机的方法）
+            //     var pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+            //     EventHandler.CallInstantiateItemInScene(itemDetails.itemID, pos);
+            //    }
+            // }
         }
 
         #endregion
