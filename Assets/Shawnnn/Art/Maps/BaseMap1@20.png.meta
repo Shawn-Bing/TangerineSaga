@@ -2555,7 +2555,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_116
+      name: BaseMap1@Cliff_1-1
       rect:
         serializedVersion: 2
         x: 440
@@ -2576,7 +2576,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_117
+      name: BaseMap1@Cliff_1-2
       rect:
         serializedVersion: 2
         x: 460
@@ -2597,7 +2597,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_118
+      name: BaseMap1@Cliff_1-3
       rect:
         serializedVersion: 2
         x: 480
@@ -2618,10 +2618,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_119
+      name: BaseMap1@Cliff_1-4
       rect:
         serializedVersion: 2
-        x: 500
+        x: 501
         y: 260
         width: 20
         height: 20
@@ -2639,7 +2639,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_120
+      name: BaseMap1@Cliff_3-1
       rect:
         serializedVersion: 2
         x: 540
@@ -2660,7 +2660,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_121
+      name: BaseMap1@Cliff_4-1
       rect:
         serializedVersion: 2
         x: 580
@@ -2849,7 +2849,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_130
+      name: BaseMap1@Cliff_1-5
       rect:
         serializedVersion: 2
         x: 440
@@ -2912,10 +2912,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_133
+      name: BaseMap1@Cliff_1-6
       rect:
         serializedVersion: 2
-        x: 500
+        x: 501
         y: 240
         width: 20
         height: 20
@@ -2933,7 +2933,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_134
+      name: BaseMap1@Cliff_3-2
       rect:
         serializedVersion: 2
         x: 540
@@ -2954,7 +2954,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_135
+      name: BaseMap1@Cliff_4-2
       rect:
         serializedVersion: 2
         x: 580
@@ -3269,7 +3269,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_150
+      name: BaseMap1@Cliff_1-7
       rect:
         serializedVersion: 2
         x: 440
@@ -3332,7 +3332,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_153
+      name: BaseMap1@Cliff_1-8
       rect:
         serializedVersion: 2
         x: 500
@@ -3353,7 +3353,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_154
+      name: BaseMap1@Cliff_3-3
       rect:
         serializedVersion: 2
         x: 540
@@ -3374,7 +3374,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_155
+      name: BaseMap1@Cliff_4-3
       rect:
         serializedVersion: 2
         x: 580
@@ -3689,7 +3689,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_170
+      name: BaseMap1@Cliff_1-9
       rect:
         serializedVersion: 2
         x: 440
@@ -3710,7 +3710,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_171
+      name: BaseMap1@Cliff_1-10
       rect:
         serializedVersion: 2
         x: 460
@@ -3731,7 +3731,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_172
+      name: BaseMap1@Cliff_1-11
       rect:
         serializedVersion: 2
         x: 480
@@ -3752,11 +3752,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_173
+      name: BaseMap1@Cliff_1-12
       rect:
         serializedVersion: 2
         x: 500
-        y: 200
+        y: 199
         width: 20
         height: 20
       alignment: 0
@@ -3773,7 +3773,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_174
+      name: BaseMap1@Cliff_3-4
       rect:
         serializedVersion: 2
         x: 540
@@ -3794,7 +3794,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_175
+      name: BaseMap1@Cliff_4-4
       rect:
         serializedVersion: 2
         x: 580
@@ -4109,7 +4109,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_190
+      name: BaseMap1@Cliff_2-1
       rect:
         serializedVersion: 2
         x: 440
@@ -4130,7 +4130,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_191
+      name: BaseMap1@Cliff_2-2
       rect:
         serializedVersion: 2
         x: 460
@@ -4151,7 +4151,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_192
+      name: BaseMap1@Cliff_2-3
       rect:
         serializedVersion: 2
         x: 480
@@ -4172,7 +4172,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_193
+      name: BaseMap1@Cliff_2-4
       rect:
         serializedVersion: 2
         x: 500
@@ -4193,7 +4193,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_194
+      name: BaseMap1@Cliff_3-5
       rect:
         serializedVersion: 2
         x: 540
@@ -4214,7 +4214,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_195
+      name: BaseMap1@Cliff_4-5
       rect:
         serializedVersion: 2
         x: 580
@@ -4487,7 +4487,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_208
+      name: BaseMap1@Cliff_2-5
       rect:
         serializedVersion: 2
         x: 440
@@ -4508,7 +4508,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_209
+      name: BaseMap1@Cliff_2-6
       rect:
         serializedVersion: 2
         x: 460
@@ -4529,7 +4529,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_210
+      name: BaseMap1@Cliff_2-7
       rect:
         serializedVersion: 2
         x: 480
@@ -4550,7 +4550,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_211
+      name: BaseMap1@Cliff_2-8
       rect:
         serializedVersion: 2
         x: 500
@@ -4571,7 +4571,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_212
+      name: BaseMap1@Cliff_3-6
       rect:
         serializedVersion: 2
         x: 540
@@ -4592,7 +4592,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaseMap1@20_213
+      name: BaseMap1@Cliff_4-6
       rect:
         serializedVersion: 2
         x: 580
@@ -7245,12 +7245,6 @@ TextureImporter:
       BaseMap1@20_113: 1133180564
       BaseMap1@20_114: 973309680
       BaseMap1@20_115: 115069127
-      BaseMap1@20_116: -626341378
-      BaseMap1@20_117: -172247121
-      BaseMap1@20_118: 1188532162
-      BaseMap1@20_119: 1623921252
-      BaseMap1@20_120: -570835875
-      BaseMap1@20_121: -663197147
       BaseMap1@20_122: -1433822240
       BaseMap1@20_123: 755140622
       BaseMap1@20_124: 748843483
@@ -7259,12 +7253,8 @@ TextureImporter:
       BaseMap1@20_127: 106730217
       BaseMap1@20_128: -23265084
       BaseMap1@20_129: 826509626
-      BaseMap1@20_130: 984597921
       BaseMap1@20_131: 1787882972
       BaseMap1@20_132: 838684811
-      BaseMap1@20_133: 2130055735
-      BaseMap1@20_134: 1687537542
-      BaseMap1@20_135: 771183947
       BaseMap1@20_136: -1531457469
       BaseMap1@20_137: -49237236
       BaseMap1@20_138: -512726574
@@ -7279,12 +7269,8 @@ TextureImporter:
       BaseMap1@20_147: -2054270162
       BaseMap1@20_148: 1506974399
       BaseMap1@20_149: 86727337
-      BaseMap1@20_150: 1904347796
       BaseMap1@20_151: 1414767389
       BaseMap1@20_152: 348526641
-      BaseMap1@20_153: -770642165
-      BaseMap1@20_154: -1726948646
-      BaseMap1@20_155: -770308890
       BaseMap1@20_156: 335220707
       BaseMap1@20_157: 1130377602
       BaseMap1@20_158: -439543360
@@ -7299,12 +7285,6 @@ TextureImporter:
       BaseMap1@20_167: 2056440946
       BaseMap1@20_168: -1556801166
       BaseMap1@20_169: 305727698
-      BaseMap1@20_170: -1119079315
-      BaseMap1@20_171: 1665365316
-      BaseMap1@20_172: 1659635148
-      BaseMap1@20_173: 1442498901
-      BaseMap1@20_174: -1281225017
-      BaseMap1@20_175: 799928578
       BaseMap1@20_176: 1738046501
       BaseMap1@20_177: 1081493448
       BaseMap1@20_178: 2012346238
@@ -7321,12 +7301,6 @@ TextureImporter:
       BaseMap1@20_188: 1092316753
       BaseMap1@20_189: 1931853552
       BaseMap1@20_19: 1325457322
-      BaseMap1@20_190: 1110036657
-      BaseMap1@20_191: -954216494
-      BaseMap1@20_192: 2066693884
-      BaseMap1@20_193: -580081679
-      BaseMap1@20_194: 1455755927
-      BaseMap1@20_195: 2068495095
       BaseMap1@20_196: -2143222675
       BaseMap1@20_197: 1073487487
       BaseMap1@20_198: -569967760
@@ -7341,13 +7315,7 @@ TextureImporter:
       BaseMap1@20_205: -1626434087
       BaseMap1@20_206: 1149302333
       BaseMap1@20_207: 1152738153
-      BaseMap1@20_208: 1900971585
-      BaseMap1@20_209: -1240746349
       BaseMap1@20_21: 965962064
-      BaseMap1@20_210: 1668155848
-      BaseMap1@20_211: 33460569
-      BaseMap1@20_212: 1996844323
-      BaseMap1@20_213: -357003937
       BaseMap1@20_214: -1108542063
       BaseMap1@20_215: 2125804386
       BaseMap1@20_216: 255043699
@@ -7533,6 +7501,38 @@ TextureImporter:
       BaseMap1@20_92: 1815236090
       BaseMap1@20_93: 1291953801
       BaseMap1@20_99: 1012417248
+      BaseMap1@Cliff_1-1: -626341378
+      BaseMap1@Cliff_1-10: 1665365316
+      BaseMap1@Cliff_1-11: 1659635148
+      BaseMap1@Cliff_1-12: 1442498901
+      BaseMap1@Cliff_1-2: -172247121
+      BaseMap1@Cliff_1-3: 1188532162
+      BaseMap1@Cliff_1-4: 1623921252
+      BaseMap1@Cliff_1-5: 984597921
+      BaseMap1@Cliff_1-6: 2130055735
+      BaseMap1@Cliff_1-7: 1904347796
+      BaseMap1@Cliff_1-8: -770642165
+      BaseMap1@Cliff_1-9: -1119079315
+      BaseMap1@Cliff_2-1: 1110036657
+      BaseMap1@Cliff_2-2: -954216494
+      BaseMap1@Cliff_2-3: 2066693884
+      BaseMap1@Cliff_2-4: -580081679
+      BaseMap1@Cliff_2-5: 1900971585
+      BaseMap1@Cliff_2-6: -1240746349
+      BaseMap1@Cliff_2-7: 1668155848
+      BaseMap1@Cliff_2-8: 33460569
+      BaseMap1@Cliff_3-1: -570835875
+      BaseMap1@Cliff_3-2: 1687537542
+      BaseMap1@Cliff_3-3: -1726948646
+      BaseMap1@Cliff_3-4: -1281225017
+      BaseMap1@Cliff_3-5: 1455755927
+      BaseMap1@Cliff_3-6: 1996844323
+      BaseMap1@Cliff_4-1: -663197147
+      BaseMap1@Cliff_4-2: 771183947
+      BaseMap1@Cliff_4-3: -770308890
+      BaseMap1@Cliff_4-4: 799928578
+      BaseMap1@Cliff_4-5: 2068495095
+      BaseMap1@Cliff_4-6: -357003937
       BaseMap1@dig01: 1244132181
       BaseMap1@dig02: 836564417
       BaseMap1@dig03: 130519297
