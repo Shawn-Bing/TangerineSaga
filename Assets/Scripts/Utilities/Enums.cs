@@ -42,3 +42,9 @@ public enum PartName
 {
     Body, Hair, Arm, Tool
 }
+
+// 为方便使用就用中文了
+public enum Season
+{
+    春天,夏天,秋天,冬天,
+}
