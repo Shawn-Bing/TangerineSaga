@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // 事件调用集
 public static class EventHandler
@@ -49,5 +50,14 @@ public static class EventHandler
     public static void CallGameHourEvent(int hour, int day, int month, int year, Season season)
     {
         GameHourEvent?.Invoke(hour, day, month, year, season);
+    }
+
+    /// <summary>
+    /// 带有位置移动的切换场景事件
+    /// </summary>
+    public static event Action<string,Vector3> TransitionEvent;
+    public static void CallTransitionEvent(string sceneName,Vector3 position)
+    {
+        TransitionEvent?.Invoke(sceneName, position);
     }
 }
