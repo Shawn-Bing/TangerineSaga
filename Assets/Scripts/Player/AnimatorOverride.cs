@@ -25,15 +25,29 @@ public class AnimatorOverride : MonoBehaviour
         }
     }
 
+    #region 注册物品选中事件
+
     private void OnEnable()
     {
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
+        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
+        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
     }
+
+    /// <summary>
+    /// 在场景卸载前取消物品选中 & 举起的物品
+    /// </summary>
+    private void OnBeforeSceneUnloadEvent()
+    {
+        holdItem.enabled = false;
+        SwitchAnimator(HoldType.None);
+    }
+    #endregion
 
     private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
     {

@@ -23,19 +23,28 @@ namespace T_Saga.Inventory
         [SerializeField] private SlotUI[] playerSlots;
 
 
-        #region 注册调用事件
+        #region 注册UI事件
         private void OnEnable()
         {
             EventHandler.UpdateInventoryUI += OnUpdateInventoryUI;
+            EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
         }
 
         private void OnDisable()
         {
             EventHandler.UpdateInventoryUI -= OnUpdateInventoryUI;
+            EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
         }
 
+        /// <summary>
+        /// 关闭所有高亮
+        /// </summary>
+        private void OnBeforeSceneUnloadEvent()
+        {
+            UpdateSlotHighlight(-1);
+        }
         #endregion
-        
+
         /// <summary>
         /// 更新背包UI显示
         /// </summary>

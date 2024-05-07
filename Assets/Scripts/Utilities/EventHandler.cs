@@ -60,4 +60,28 @@ public static class EventHandler
     {
         TransitionEvent?.Invoke(sceneName, position);
     }
+
+    /// <summary>
+    /// 调整方法优先级事件
+    /// </summary>
+    public static event Action BeforeSceneUnloadEvent;
+    public static void CallBeforeSceneUnloadEvent()
+    {
+        BeforeSceneUnloadEvent?.Invoke();
+    }
+
+    public static event Action AfterSceneLoadEvent;
+    public static void CallAfterSceneLoadEvent()
+    {
+        AfterSceneLoadEvent?.Invoke();
+    }
+
+    /// <summary>
+    /// 移动坐标事件
+    /// </summary>
+    public static event Action<Vector3> MoveToPosition;
+    public static void CallMoveToPosition(Vector3 targetPosition)
+    {
+        MoveToPosition?.Invoke(targetPosition);
+    }
 }

@@ -18,9 +18,13 @@ public class SetBounds : MonoBehaviour
         confiner.InvalidatePathCache();
     }
 
-    private void Start()
-    {
-        //在游戏开始时运行该函数，设置边界，但要注意切换时不会再次运行，因此还要在之后更改调用
-        SetConfinerShape();
+    /// <summary>
+    /// 注册设置边界方法，调整执行顺序
+    /// </summary>
+    private void OnEnable() {
+        EventHandler.AfterSceneLoadEvent += SetConfinerShape;
+    }
+    private void OnDisable() {
+        EventHandler.AfterSceneLoadEvent -= SetConfinerShape;
     }
 }

@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private float inputX;
     private float inputY;
     private Vector2 movementInput;
+    private bool canPlayerMove;//是否允许玩家移动
     [Header("人物动画")]
     private bool isMoving;
     private Animator[] animators;//创建数组获取Player身上全部Animator
@@ -32,7 +33,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    //detect Player's input then combine it as a Vector
+    /// <summary>
+    /// detect Player's input then combine it as a Vector
+    /// </summary>
     private void PlayerInput()
     {
         inputX = Input.GetAxisRaw("Horizontal");
@@ -65,10 +68,46 @@ public class Player : MonoBehaviour
         animators = GetComponentsInChildren<Animator>();
     }
     private void Update() {
-        PlayerInput();
+        if(canPlayerMove)
+        {
+            PlayerInput();
+        }
         SwitchAnimation();
     }
     private void FixedUpdate() {
         Movement();
     }
+
+    #region 注册玩家坐标移动事件
+
+    private void OnEnable()
+    {
+        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
+        EventHandler.MoveToPosition += OnMoveToPosition;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
+        EventHandler.MoveToPosition -= OnMoveToPosition;
+    }
+
+    private void OnBeforeSceneUnloadEvent()
+    {
+        canPlayerMove = false;
+    }
+
+    private void OnAfterSceneLoadEvent()
+    {
+        canPlayerMove = true;
+    }
+
+    private void OnMoveToPosition(Vector3 targetPosition)
+    {
+        transform.position = targetPosition;
+    }
+
+    #endregion
 }
