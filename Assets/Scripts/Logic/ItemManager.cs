@@ -7,7 +7,10 @@ namespace T_Saga.Inventory
     public class ItemManager : MonoBehaviour
     {
         public Item itemPrefab;
-        private Transform itemParent;//用一个父物体统管全部Prefab
+        
+        //用一个父物体统管全部Prefab
+        //TODO：引擎中赋值
+        private Transform itemParent;
 
         #region 注册实例化物品事件
         private void OnEnable() {
@@ -23,7 +26,8 @@ namespace T_Saga.Inventory
         //调整获取itemParent执行顺序
         private void OnAfterSceneLoadEvent()
         {
-            //获取itemParent
+            //TODO:引擎中加标签
+            // 获取itemParent
             itemParent = GameObject.FindWithTag("ItemParent").transform;
         }
         #endregion

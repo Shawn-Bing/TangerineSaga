@@ -8,7 +8,7 @@ namespace T_Saga.Inventory
 {
     public class InventoryManager : Singleton<InventoryManager>
     {
-        // 以下SO类型记得在Inventory Manger (object) 中赋值否则会报空
+        //TODO： 以下SO类型记得在Inventory Manger (object) 中赋值否则会报空
         [Header("物品数据")]
         public ItemDataList_SO itemDataList_SO;
         [Header("背包数据")]

@@ -7,7 +7,7 @@ public class AnimatorOverride : MonoBehaviour
 {
     private Animator[] animators;
 
-    public SpriteRenderer holdItem;
+    public SpriteRenderer holdItem;//TODO:引擎中设置
 
     [Header("动画列表")]
     // 引擎中设置列表，使类型和控制器对应

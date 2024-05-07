@@ -8,6 +8,8 @@ namespace T_Saga.Transition
     public class TransitionManager : MonoBehaviour
     {
         [SceneName]//使用Scene Name Attribute
+
+        //TODO：引擎中赋值
         public string startSceneName = string.Empty;//初始场景
         public Vector3 startPosition;//初始位置
         

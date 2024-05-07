@@ -6,6 +6,7 @@ namespace T_Saga.Inventory
 {
     public class Item : MonoBehaviour
     {
+        //TODO：引擎中赋值
         public int itemID;
         public ItemDetails itemDetails;
         private SpriteRenderer spriteRenderer;

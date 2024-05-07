@@ -7,6 +7,8 @@ namespace T_Saga.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        #region 获取Object
+        //TODO 引擎中获取
         [Header("物品提示")]
         public ItemTips itemTips;
 
@@ -20,8 +22,10 @@ namespace T_Saga.Inventory
         private bool bagOpened;
         
         [Header("背包格子")]
+        // 最好固定为26
         [SerializeField] private SlotUI[] playerSlots;
-
+        #endregion
+        
 
         #region 注册UI事件
         private void OnEnable()

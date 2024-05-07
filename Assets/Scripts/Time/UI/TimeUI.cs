@@ -8,7 +8,7 @@ using DG.Tweening;
 // 挂载到TimeUI上的脚本
 public class TimeUI : MonoBehaviour
 {
-    // 在引擎中获取各部分组件
+    // TODO：在引擎中获取各部分组件
     public RectTransform dayNightImage;
     public RectTransform clockParent;
     public TextMeshProUGUI dateText;
