@@ -6,6 +6,7 @@ namespace T_Saga.Transition
 {
     public class Portal : MonoBehaviour
     {
+        [SceneName]//使用Scene Name Attribute
         public string sceneToGo;
         public Vector3 positionToGo;
 
