@@ -10,12 +10,12 @@ public class ItemFade : MonoBehaviour
     public void FadeOut()
     {
         Color translucentColor = new Color(1,1,1,Settings.targetAlpha);
-        spriteRenderer.DOColor(translucentColor,Settings.fadeDuration);
+        spriteRenderer.DOColor(translucentColor,Settings.itemFadeDuration);
     }
     public void FadeIn()
     {
         Color originColor = new Color(1,1,1,1);
-        spriteRenderer.DOColor(originColor,Settings.fadeDuration);
+        spriteRenderer.DOColor(originColor,Settings.itemFadeDuration);
     }
 
     private void Awake() {

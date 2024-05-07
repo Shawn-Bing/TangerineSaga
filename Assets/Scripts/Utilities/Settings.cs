@@ -5,8 +5,11 @@ using UnityEngine;
 public class Settings
 {
     // ItemFade参数
-    public const float fadeDuration = 0.35f;
+    public const float itemFadeDuration = 0.35f;
     public const float targetAlpha = 0.45f;
+
+    // SceneFade 参数
+    public const float sceneFadeDuration = 0.8f;
 
     // 时间系统参数
     public const int MaxmiumYear = 9999;

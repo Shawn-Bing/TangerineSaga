@@ -72,10 +72,17 @@ public class Player : MonoBehaviour
         {
             PlayerInput();
         }
+        else
+        {
+            isMoving = true;
+        }
         SwitchAnimation();
     }
     private void FixedUpdate() {
-        Movement();
+        if(canPlayerMove)
+        {
+            Movement();
+        }   
     }
 
     #region 注册玩家坐标移动事件
