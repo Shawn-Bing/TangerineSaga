@@ -13,8 +13,16 @@ public class TimeManager : MonoBehaviour
     {
         NewGameTime();
     }
+
+    // 在Enable之后执行，调用更新时间UI
+    private void Start() {
+        EventHandler.CallGameHourEvent(gameHour,gameDay,gameMonth,gameYear,gameSeason);
+        EventHandler.CallGameMinuteEvent(gameMinute,gameHour);
+    }
+
     private void Update()
     {
+        // 计时器更新时间
         if (!gameClockPause)
         {
             tickTime += Time.deltaTime;
@@ -22,6 +30,15 @@ public class TimeManager : MonoBehaviour
             if (tickTime >= Settings.secondThreshold)
             {
                 tickTime -= Settings.secondThreshold;
+                UpdateGameTime();
+            }
+        }
+        
+        // 金手指，按住就加1分钟
+        if(Input.GetKey(KeyCode.T))
+        {
+            for(int i=0;i < 60;i++)
+            {
                 UpdateGameTime();
             }
         }
@@ -100,8 +117,13 @@ public class TimeManager : MonoBehaviour
                         }
                     }
                 }
+                // 呼叫事件，更新日期（日期关联到更上级）
+                EventHandler.CallGameHourEvent(gameHour,gameDay,gameMonth,gameYear,gameSeason);
             }
+            // 更新分钟
+            EventHandler.CallGameMinuteEvent(gameMinute,gameHour);
         }
-        Debug.Log("Second: " + gameSecond + " Minute: " + gameMinute + " Hour: " + gameHour + " Day: " + gameDay + " Month: " + gameMonth + " Season: " + gameSeason + " Year: " + gameYear);
+        // 测试代码，输出当前时间数据
+        //Debug.Log("Second: " + gameSecond + " Minute: " + gameMinute + " Hour: " + gameHour + " Day: " + gameDay + " Month: " + gameMonth + " Season: " + gameSeason + " Year: " + gameYear);
     }
 }

@@ -32,4 +32,22 @@ public static class EventHandler
     {
         ItemSelectedEvent?.Invoke(itemDetails, isSelected);
     }
+
+    /// <summary>
+    /// 由于小时、分钟较快，单独设立事件通知其他物体更新状态
+    /// </summary>
+    public static event Action<int, int> GameMinuteEvent;
+    public static void CallGameMinuteEvent(int minute, int hour)
+    {
+        GameMinuteEvent?.Invoke(minute, hour);
+    }
+
+    /// <summary>
+    /// 更新Hour会造成Hour上级时间单位改变
+    /// </summary>
+    public static event Action<int, int, int, int, Season> GameHourEvent;
+    public static void CallGameHourEvent(int hour, int day, int month, int year, Season season)
+    {
+        GameHourEvent?.Invoke(hour, day, month, year, season);
+    }
 }
