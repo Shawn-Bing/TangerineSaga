@@ -3,7 +3,7 @@ using TMPro;
 
 public class SinText : MonoBehaviour
 {
-    public TMP_Text tmp;
+    public TMP_Text tmp;//TODO:引擎中获取组件
 
     void Update()
     {
