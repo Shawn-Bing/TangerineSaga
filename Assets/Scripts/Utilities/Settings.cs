@@ -9,7 +9,7 @@ public class Settings
     public const float targetAlpha = 0.45f;
 
     // SceneFade 参数
-    public const float sceneFadeDuration = 0.8f;
+    public const float sceneFadeDuration = 1.5f;
 
     // 时间系统参数
     public const int MaxmiumYear = 9999;

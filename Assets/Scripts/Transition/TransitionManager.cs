@@ -93,7 +93,7 @@ namespace T_Saga.Transition
 
             fadeCanvasGroup.blocksRaycasts = true;
 
-            float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / Settings.itemFadeDuration;
+            float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / Settings.sceneFadeDuration;
 
             while (!Mathf.Approximately(fadeCanvasGroup.alpha, targetAlpha))
             {
