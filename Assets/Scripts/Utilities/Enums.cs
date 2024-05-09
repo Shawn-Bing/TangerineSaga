@@ -8,7 +8,7 @@ public enum ItemType
 
     #region 耕作工具
     //不可买卖
-    HoeTool,ChopTool,BreakTool,ReapTool,WaterTool,CollectTool,
+    HoeTool, ChopTool, BreakTool, ReapTool, WaterTool, CollectTool,
     #endregion
 
     #region 可破坏物
@@ -17,7 +17,7 @@ public enum ItemType
     #endregion
 }
 
-//物品格子类型
+// 物品格子类型
 public enum SlotType
 {
     PlayerBag,//玩家背包
@@ -28,16 +28,16 @@ public enum SlotType
 //UI更新位置
 public enum InventoryLocation
 {
-    PlayerBag,Box,
+    PlayerBag, Box,
 }
 
-//人物举起状态
+// 人物举起状态
 public enum HoldType
 {
     None, Carry
 }
-  
-//人物身体部分名称
+
+// 人物身体部分名称
 public enum PartName
 {
     Body, Hair, Arm, Tool
@@ -46,5 +46,11 @@ public enum PartName
 // 为方便使用就用中文了
 public enum Season
 {
-    春天,夏天,秋天,冬天,
+    春天, 夏天, 秋天, 冬天,
+}
+
+// 网格类型
+public enum GridType
+{
+    Diggable, DropItem, PlaceFurniture, NPCObstacle
 }

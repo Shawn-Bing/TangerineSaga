@@ -75,3 +75,12 @@ public class SceneItem
     public int itemID;
     public SerializableVector3 position;
 }
+
+[System.Serializable]
+// 存放Grid Properties
+public class TileProperties
+{
+    public Vector2Int tileCoordinate;
+    public GridType gridType;
+    public bool boolTypeValue;
+}
