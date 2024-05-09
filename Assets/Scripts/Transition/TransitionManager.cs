@@ -72,7 +72,6 @@ namespace T_Saga.Transition
         /// <returns></returns>
         private IEnumerator TransitScene(string sceneName, Vector3 targetPosition)
         {
-        
             EventHandler.CallBeforeSceneUnloadEvent();//通知程序在卸载场景之前，要执行如下方法
             yield return SceneFade(1);
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());

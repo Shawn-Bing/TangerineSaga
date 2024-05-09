@@ -68,13 +68,13 @@ public class Player : MonoBehaviour
         animators = GetComponentsInChildren<Animator>();
     }
     private void Update() {
-        if(canPlayerMove)
+        if(!canPlayerMove)
+        {
+            isMoving = false;
+            
+        }else
         {
             PlayerInput();
-        }
-        else
-        {
-            isMoving = true;
         }
         SwitchAnimation();
     }

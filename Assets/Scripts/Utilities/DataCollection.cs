@@ -34,11 +34,44 @@ public struct InventoryItem
 }
 
 [System.Serializable]
-///存放玩家动画类型,是空闲/举起 + 身体部位的排列组合，这个排列组合应当对应动画控制器
+// 存放玩家动画类型,是空闲/举起 + 身体部位的排列组合，这个排列组合应当对应动画控制器
 public class AnimatorType
-
 {
     public HoldType holdType;
     public PartName partName;
     public AnimatorOverrideController overrideController;
+}
+
+[System.Serializable]
+// 存放玩家的坐标
+public class SerializableVector3
+{
+    public float x, y, z;
+    //序列化为一个向量
+    public SerializableVector3(Vector3 pos)
+    {
+        this.x = pos.x;
+        this.y = pos.y;
+        this.z = pos.z;
+    }
+
+    //返回位置向量
+    public Vector3 ToVector3()
+    {
+        return new Vector3(x, y, z);
+    }
+
+    // 返回基于瓦片地图的2D坐标
+    public Vector2Int ToVector2Int()
+    {
+        return new Vector2Int((int)x, (int)y);
+    }
+}
+
+[System.Serializable]
+// 存放场景中的物品
+public class SceneItem
+{
+    public int itemID;
+    public SerializableVector3 position;
 }
