@@ -30,10 +30,12 @@ namespace T_Saga.Transition
             EventHandler.TransitionEvent -= OnTransitionEvent;
         }
 
-        private void Start()
+        // 改为协程Start，可以直接运行协程的各类方法
+        private IEnumerator Start()
         {
-            StartCoroutine(LoadSceneSetActive(startSceneName,startPosition));
             fadeCanvasGroup = FindObjectOfType<CanvasGroup>();
+            yield return LoadSceneSetActive(startSceneName,startPosition);
+            EventHandler.CallAfterSceneLoadEvent();
         }
 
         private void OnTransitionEvent(string sceneToGo, Vector3 positionToGo)

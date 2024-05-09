@@ -84,3 +84,22 @@ public class TileProperties
     public GridType gridType;
     public bool boolTypeValue;
 }
+
+[System.Serializable]
+// 存放瓦片详情信息
+public class TileDetails
+{
+    // Grid 基本数值
+    public int girdX, gridY;
+    public bool canDig;
+    public bool canDropItem;
+    public bool canPlaceFurniture;
+    public bool isNPCObstacle;
+
+    // Grid 计时变量
+    public int daysSinceDug = -1;
+    public int daysSinceWatered = -1;
+    public int seedItemID = -1;
+    public int growthDays = -1;
+    public int daysSinceLastHarvest = -1;// 可重复收割
+}
