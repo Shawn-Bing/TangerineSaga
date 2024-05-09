@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace T_Saga.Map
 {
     //所有Manager都要挂载到Persistant Scene object上
-    public class GridMapManager : MonoBehaviour
+    public class GridMapManager : Singleton<GridMapManager>
     {
         [Header("地图")]
+        //TODO:引擎中赋值
         public List<MapData_SO> mapDataList;
         
         // 字典存放场景名，坐标和对应的瓦片信息
@@ -79,6 +81,18 @@ namespace T_Saga.Map
                 return tileDetailsDict[key];
             }
             return null;
+        }
+
+        /// <summary>
+        /// 由鼠标的网格坐标返回给Cursor Manager瓦片信息，切换Cursor样式
+        /// 因此要改此脚本为Singleton
+        /// </summary>
+        /// <param name="mouseGridPos">鼠标网格坐标</param>
+        /// <returns></returns>
+        public TileDetails GetTileDetailsOnMousePosition(Vector3Int mouseGridPos)
+        {
+            string key = mouseGridPos.x + "x" + mouseGridPos.y + "y" + SceneManager.GetActiveScene().name;
+            return GetTileDetails(key);
         }
     }
 }

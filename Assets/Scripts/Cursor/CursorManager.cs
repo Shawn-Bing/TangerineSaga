@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using T_Saga.Map;
+using System;
 
 public class CursorManager : MonoBehaviour
 {
     [Header("指针图像")]
-    public Sprite normal, tool, seed, item;// 图标类型
+    public Sprite normal, tool, seed, item, invalid;// 图标类型
     private Sprite currentSprite;   // 存储当前鼠标图片
     private Image cursorImage;      // 获取鼠标图片
     private RectTransform cursorCanvas;// 获取UI类型
@@ -19,7 +21,13 @@ public class CursorManager : MonoBehaviour
     private Vector3Int mouseGridPos;
 
     private bool cursorEnable;//场景加载完毕之前禁用Cursor
-
+    private bool cursorPositionValid;
+    private ItemDetails currentItem;// 存放当前瓦片信息等
+    
+    //获取人物组件
+    private Transform PlayerTransform => FindObjectOfType<Player>().transform;
+    
+    #region 注册物品选中、鼠标可用状态事件
     private void OnEnable()
     {
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
@@ -39,10 +47,15 @@ public class CursorManager : MonoBehaviour
     {
         if(!isSelected)
         {
+            currentItem = null;
+            cursorEnable = false;//没选中任何物体时禁用Cursor
             currentSprite = normal;//取消选择切换回Normal Cursor
         }
         else
         {
+            //选中物体时传递Tile信息
+            currentItem = itemDetails;
+
             //TODO::添加所有类型对应Cursor图片
             currentSprite = itemDetails.itemType switch
             {
@@ -57,6 +70,9 @@ public class CursorManager : MonoBehaviour
                 ItemType.CollectTool => tool,
                 _ => normal,
             };
+
+            //启用
+            cursorEnable = true;
         }
     }
 
@@ -69,9 +85,109 @@ public class CursorManager : MonoBehaviour
     // 加载场景后要做的事件
     private void OnAfterSceneLoadedEvent()
     {
-        currentGrid = FindObjectOfType<Grid>();
-        cursorEnable = true;//加载完之后再启用鼠标
+        currentGrid = FindObjectOfType<Grid>();//获得Grid
     }
+
+    #endregion
+
+
+    #region 设置Cursor图片、颜色
+
+    /// <summary>
+    /// 设置Cursor图片
+    /// 初始化颜色
+    /// </summary>
+    /// <param name="sprite"></param>
+    private void SetCursorImage(Sprite sprite)
+    {
+        cursorImage.sprite = sprite;
+        cursorImage.color = new Color(1, 1, 1, 1);
+    }
+
+    // 可用状态Cursor
+    private void SetCursorValid()
+    {
+        cursorPositionValid = true;
+        cursorImage.color = new Color(1,1,1,1);
+    }
+
+    // 不可用状态Cursor
+    private void SetCursorInValid()
+    {
+        cursorPositionValid = false;
+        SetCursorImage(invalid);
+        cursorImage.color = new Color(1,0,0,0.4f);
+    }
+
+    #endregion
+
+
+    #region 监测鼠标可用状态
+    /// <summary>
+    /// 监测鼠标是否可用
+    /// 返回网格的世界坐标&网格坐标
+    /// </summary>
+    private void CheckCursorValid()
+    {
+        mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -mainCamera.transform.position.z));
+        //这里减去了Main Camera和屏幕的距离
+        mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
+        
+
+        //获取人物网格坐标。实现UseRadius
+        var playerGridPos = currentGrid.WorldToCell(PlayerTransform.position);
+        
+
+        // 若不在使用范围内，设为禁用Cursor
+        if (Mathf.Abs(mouseGridPos.x - playerGridPos.x) > currentItem.itemUseRadius || Mathf.Abs(mouseGridPos.y - playerGridPos.y) > currentItem.itemUseRadius)
+        {
+            SetCursorInValid();
+            return;
+        }
+        // 测试输出鼠标所指世界坐标
+        // Debug.Log("WorldPos:" + mouseWorldPos + "\n" + "GridPos:" + mouseGridPos);
+
+        // 获取指针处tile信息
+        TileDetails currentTile = GridMapManager.Instance.GetTileDetailsOnMousePosition(mouseGridPos);
+
+        if (currentTile != null)//若当前选中的瓦片有信息（如canDig、CanDrop)
+        {
+            // 切换Tile信息
+            switch(currentItem.itemType)
+            {
+                case ItemType.Commodity:
+                    if (currentTile.canDropItem && currentItem.canDropped)
+                    {
+                        Debug.Log("Hello");
+                        SetCursorValid();
+                    }
+                    else
+                    {
+                        SetCursorInValid();
+                    }
+                    break;
+            }
+        }
+        else // 因为只标记了可丢弃物品区域，对未标注瓦片执行默认操作
+        {
+            SetCursorInValid();
+        }
+    }
+
+    /// <summary>
+    /// 是否与UI互动
+    /// </summary>
+    /// <returns></returns>
+    private bool InteractWithUI()
+    {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
 
     private void Start()
     {
@@ -104,41 +220,4 @@ public class CursorManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 设置Cursor图片
-    /// 初始化颜色
-    /// </summary>
-    /// <param name="sprite"></param>
-    private void SetCursorImage(Sprite sprite)
-    {
-        cursorImage.sprite = sprite;
-        cursorImage.color = new Color(1, 1, 1, 1);
-    }
-
-    /// <summary>
-    /// 监测鼠标是否可用
-    /// 返回网格的世界坐标&网格坐标
-    /// </summary>
-    private void CheckCursorValid()
-    {
-        mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -mainCamera.transform.position.z));
-        //这里减去了Main Camera和屏幕的距离
-        mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
-        
-        //测试输出
-        Debug.Log("WorldPos:" + mouseWorldPos + "\n" + "GridPos:" + mouseGridPos);
-    }
-
-    /// <summary>
-    /// 是否与UI互动
-    /// </summary>
-    /// <returns></returns>
-    private bool InteractWithUI()
-    {
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-        {
-            return true;
-        }
-        return false;
-    }
 }
