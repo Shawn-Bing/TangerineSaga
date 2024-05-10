@@ -7,11 +7,15 @@ namespace T_Saga.Inventory
 {
     public class ItemManager : MonoBehaviour
     {
+        //TODO：引擎中给Item Manager赋值
         public Item itemPrefab;
+        public Item bounceItemPrefab;
         
         //用一个父物体统管全部Prefab
-        //TODO：引擎中赋值
         private Transform itemParent;
+
+        // 获取Player的transform（获取坐标）
+        private Transform PlayerTransform => FindObjectOfType<Player>().transform;
 
         // 记录场景Item，存放在一个字典里
         private Dictionary<string, List<SceneItem>> sceneItemDict = new Dictionary<string, List<SceneItem>>();
@@ -59,11 +63,19 @@ namespace T_Saga.Inventory
             item.itemID = ID;//给出ID即可生成物体
         }
 
-        //
+        /// <summary>
+        /// 丢弃物品
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="mousePos"></param>
+        /// <param name="itemType"></param>
         private void OnDropItemEvent(int ID, Vector3 mousePos)
         {
-            var item = Instantiate(itemPrefab, mousePos, Quaternion.identity, itemParent);
-            item.itemID = ID;//给出ID即可生成物体
+            //在人物旁边生成丢出的物品
+            var item = Instantiate(bounceItemPrefab, PlayerTransform.position, Quaternion.identity, itemParent);
+            item.itemID = ID;
+            var dir = (mousePos - PlayerTransform.position).normalized;//获取方向
+            item.GetComponent<ItemBounce>().InitBounceItem(mousePos, dir);//生成物品
         }
         #endregion
 

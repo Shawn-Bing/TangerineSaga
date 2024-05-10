@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 6411361577608103957, guid: b6dea0fca546f4a148f398901f940ffa, type: 3}
+  bounceItemPrefab: {fileID: 6697692374517480033, guid: dad06eb1d89054298a4a683aba7f5b00, type: 3}
 --- !u!4 &207389426
 Transform:
   m_ObjectHideFlags: 0
@@ -346,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dc74a61e27041728cb99724172af59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSceneName: Map_Home
+  startSceneName: Map_01
   startPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
