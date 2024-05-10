@@ -17,15 +17,17 @@ namespace T_Saga.Inventory
         private Dictionary<string, List<SceneItem>> sceneItemDict = new Dictionary<string, List<SceneItem>>();
         
 
-        #region 注册实例化物品事件
+        #region 注册背包物品事件
         private void OnEnable() {
-            EventHandler.InstantiateItemInScene += OnInstantiateItemInScene;
+            EventHandler.InstantiateItemInScene += OnInstantiateItemInScene;//生成物品
+            EventHandler.DropItemEvent += OnDropItemEvent;//丢掉物品（减少背包物品，增加场景物品）
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
             EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
         }
 
         private void OnDisable() {
             EventHandler.InstantiateItemInScene -= OnInstantiateItemInScene;
+            EventHandler.DropItemEvent -= OnDropItemEvent;
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
             EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
         }
@@ -46,14 +48,24 @@ namespace T_Saga.Inventory
             RecreateAllItems();
         }
 
-        #endregion
-
-        //由ID生成物体
+        /// <summary>
+        /// 由物品ID在坐标处生成物体
+        /// </summary>
+        /// <param name="ID">物品ID</param>
+        /// <param name="pos">生成坐标</param>
         private void OnInstantiateItemInScene(int ID, Vector3 pos)
         {
             var item = Instantiate(itemPrefab, pos, Quaternion.identity, itemParent);
             item.itemID = ID;//给出ID即可生成物体
         }
+
+        //
+        private void OnDropItemEvent(int ID, Vector3 mousePos)
+        {
+            var item = Instantiate(itemPrefab, mousePos, Quaternion.identity, itemParent);
+            item.itemID = ID;//给出ID即可生成物体
+        }
+        #endregion
 
         /// <summary>
         /// 获得当前场景所有Item

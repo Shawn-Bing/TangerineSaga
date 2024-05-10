@@ -15,6 +15,21 @@ namespace T_Saga.Inventory
         public InventoryRepo_SO playerBag;
 
 
+        #region 注册扔出物品事件
+        private void OnEnable() {
+            EventHandler.DropItemEvent += OnDropItem;
+        }
+        private void OnDisable() {
+            EventHandler.DropItemEvent -= OnDropItem;
+        }
+
+        private void OnDropItem(int ID, Vector3 pos)
+        {
+            RemoveItem(ID, 1);
+        }
+        #endregion
+
+
         /// <summary>
         /// 在游戏开始时调用一次更新UI，应对读档情况
         /// </summary>
@@ -115,6 +130,33 @@ namespace T_Saga.Inventory
                 var item = new InventoryItem { itemID = ID, itemAmount = currentAmount };
                 playerBag.itemList[index] = item;
             }
+        }
+
+        /// <summary>
+        /// 移除N个玩家背包内物品
+        /// </summary>
+        /// <param name="ID">要移除的物品ID</param>
+        /// <param name="RemoveAmount">移除数量</param>
+        public void RemoveItem(int ID,int RemoveAmount)
+        {
+            var index = GetItemIndexInBag(ID);//获取物品背包内ID
+
+            // 检测背包内物品数量是否大于移除数量，若是，更新背包内物品数据
+            if (playerBag.itemList[index].itemAmount > RemoveAmount)
+            {
+                var amount = playerBag.itemList[index].itemAmount - RemoveAmount;
+                var item = new InventoryItem { itemID = ID, itemAmount = amount };
+                playerBag.itemList[index] = item;
+            }
+            // 若恰好等于，清空该ID物品
+            else if (playerBag.itemList[index].itemAmount == RemoveAmount)
+            {
+                var item = new InventoryItem();
+                playerBag.itemList[index] = item;
+            }
+
+            // 更新玩家背包UI
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.PlayerBag, playerBag.itemList);
         }
 
         /// <summary>

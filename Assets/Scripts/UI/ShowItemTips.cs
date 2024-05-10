@@ -22,8 +22,8 @@ namespace T_Saga.Inventory
         /// </summary>
         public void OnPointerEnter(PointerEventData eventData)
         {
-            // 当物品数量>0时才显示
-            if (slotUI.itemAmount != 0)
+            // 当物品详情不为空时才显示(丢弃物品)
+            if (slotUI.itemDetails != null)
             {
                 InvtrUI.itemTips.gameObject.SetActive(true);
                 InvtrUI.itemTips.SetupItemTip(slotUI.itemDetails, slotUI.slotType);

@@ -85,20 +85,23 @@ public class Player : MonoBehaviour
         }   
     }
 
-    #region 注册玩家坐标移动事件
+    #region 注册玩家坐标移动、鼠标点击事件
 
     private void OnEnable()
     {
         EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
         EventHandler.MoveToPosition += OnMoveToPosition;
+        EventHandler.MouseClickedEvent += OnMouseClickedEvent;
     }
+
 
     private void OnDisable()
     {
         EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
         EventHandler.MoveToPosition -= OnMoveToPosition;
+        EventHandler.MouseClickedEvent -= OnMouseClickedEvent;
     }
 
     private void OnBeforeSceneUnloadEvent()
@@ -114,6 +117,17 @@ public class Player : MonoBehaviour
     private void OnMoveToPosition(Vector3 targetPosition)
     {
         transform.position = targetPosition;
+    }
+
+    /// <summary>
+    /// //点击物品时通知Player切换到对应动画
+    /// </summary>
+    /// <param name="pos">鼠标所指的世界坐标</param>
+    /// <param name="itemDetails">选中物品详情</param>
+    private void OnMouseClickedEvent(Vector3 pos, ItemDetails itemDetails)
+    {
+        // 在播放动画之后再执行，否则刚播放砍树动画，树就倒下了
+        EventHandler.CallExecuteActionAfterAnimation(pos, itemDetails);
     }
 
     #endregion

@@ -27,12 +27,13 @@ public class CursorManager : MonoBehaviour
     //获取人物组件
     private Transform PlayerTransform => FindObjectOfType<Player>().transform;
     
-    #region 注册物品选中、鼠标可用状态事件
+    #region 注册物品选中、鼠标可用状态、切换物品事件
     private void OnEnable()
     {
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
         EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadedEvent;
+        EventHandler.ExecuteActionAfterAnimation += OnExecuteActionAfterAnimation;
     }
 
     private void OnDisable()
@@ -40,6 +41,7 @@ public class CursorManager : MonoBehaviour
         EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
         EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadedEvent;
+        EventHandler.ExecuteActionAfterAnimation -= OnExecuteActionAfterAnimation;
     }
 
     // 物品选中事件
@@ -73,6 +75,16 @@ public class CursorManager : MonoBehaviour
 
             //启用
             cursorEnable = true;
+        }
+    }
+
+    //当选中工具时，监测玩家输入
+    private void CheckPlayerInput()
+    {
+        if (Input.GetMouseButtonDown(0) && cursorPositionValid)
+        {
+            //执行方法
+            EventHandler.CallMouseClickedEvent(mouseWorldPos, currentItem);
         }
     }
 
@@ -125,6 +137,7 @@ public class CursorManager : MonoBehaviour
     #region 监测鼠标可用状态
     /// <summary>
     /// 监测鼠标是否可用
+    /// 判断依据是Map Data中的GridType
     /// 返回网格的世界坐标&网格坐标
     /// </summary>
     private void CheckCursorValid()
@@ -158,7 +171,6 @@ public class CursorManager : MonoBehaviour
                 case ItemType.Commodity:
                     if (currentTile.canDropItem && currentItem.canDropped)
                     {
-                        Debug.Log("Hello");
                         SetCursorValid();
                     }
                     else
@@ -189,6 +201,28 @@ public class CursorManager : MonoBehaviour
 
     #endregion
 
+
+    #region 执行功能
+    private void OnExecuteActionAfterAnimation(Vector3 mouseWorldPos, ItemDetails itemDetails)
+        {
+            var mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
+            TileDetails currentTile = GridMapManager.Instance.GetTileDetailsOnMousePosition(mouseGridPos);
+
+            if (currentTile != null)
+            {
+                //TODO:添加物品/工具实际功能
+                switch (itemDetails.itemType)
+                {
+                    case ItemType.Commodity:
+                        EventHandler.CallDropItemEvent(itemDetails.itemID, mouseWorldPos);
+                        break;         
+                }
+            }
+        }
+    #endregion
+
+
+    #region Start&Update
     private void Start()
     {
         //获取CursorCanvas下的存放鼠标指针图像的第一个子物体
@@ -208,16 +242,24 @@ public class CursorManager : MonoBehaviour
         if (cursorCanvas == null) return;
         cursorImage.transform.position = Input.mousePosition;
 
-        // 依据物品更新Cursor图片
+        // 鼠标点击选中物品
         if(!InteractWithUI() && cursorEnable)
         {
+            //依据物品类型更新Cursor图片
             SetCursorImage(currentSprite);
+            
+            //监测鼠标所在格子上物品是否符合Grid Type
             CheckCursorValid();
+            
+            //监测鼠标所在的格子上物品是否符合Use Radius
+            CheckPlayerInput();
         }
         else
         {
             SetCursorImage(normal);
         }
     }
+
+    #endregion
 
 }

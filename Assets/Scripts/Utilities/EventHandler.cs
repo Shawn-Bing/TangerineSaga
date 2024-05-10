@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 // 事件调用集
 public static class EventHandler
 {
+
+    #region 背包
     /// <summary>
     /// 更新目标位置(背包等)的UI
     /// </summary>
@@ -35,6 +37,17 @@ public static class EventHandler
     }
 
     /// <summary>
+    /// 扔出物品(从背包)
+    /// </summary>
+    public static event Action<int, Vector3> DropItemEvent;
+    public static void CallDropItemEvent(int ID, Vector3 pos)
+    {
+        DropItemEvent?.Invoke(ID, pos);
+    }
+    #endregion
+
+    #region 时间
+    /// <summary>
     /// 由于小时、分钟较快，单独设立事件通知其他物体更新状态
     /// </summary>
     public static event Action<int, int> GameMinuteEvent;
@@ -51,7 +64,9 @@ public static class EventHandler
     {
         GameHourEvent?.Invoke(hour, day, month, year, season);
     }
+    #endregion
 
+    #region 场景切换
     /// <summary>
     /// 带有位置移动的切换场景事件
     /// </summary>
@@ -60,6 +75,7 @@ public static class EventHandler
     {
         TransitionEvent?.Invoke(sceneName, position);
     }
+    #endregion
 
     /// <summary>
     /// 调整方法优先级事件
@@ -83,5 +99,23 @@ public static class EventHandler
     public static void CallMoveToPosition(Vector3 targetPosition)
     {
         MoveToPosition?.Invoke(targetPosition);
+    }
+
+    /// <summary>
+    /// 鼠标点击事件(传递选中了物品的信息)
+    /// </summary>
+    public static event Action<Vector3, ItemDetails> MouseClickedEvent;
+    public static void CallMouseClickedEvent(Vector3 pos, ItemDetails itemDetails)
+    {
+        MouseClickedEvent?.Invoke(pos, itemDetails);
+    }
+
+    /// <summary>
+    /// 在播放动画后，执行各类方法如砍树、播种等
+    /// </summary>
+    public static event Action<Vector3, ItemDetails> ExecuteActionAfterAnimation;
+    public static void CallExecuteActionAfterAnimation(Vector3 pos, ItemDetails itemDetails)
+    {
+        ExecuteActionAfterAnimation?.Invoke(pos, itemDetails);
     }
 }

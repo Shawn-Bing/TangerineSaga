@@ -34,8 +34,7 @@ namespace T_Saga
         private void Start()
         {
             isSelected = false;
-            // public变量会初始化，不能用itemDetails == null来判断
-            if (itemDetails.itemID == 0)
+            if (itemDetails == null)
             {
                 UpdateEmptySlot();
             }
@@ -68,11 +67,13 @@ namespace T_Saga
             if (isSelected)
             {
                 isSelected = false;
+                inventoryUI.UpdateSlotHighlight(-1);//清空高亮
+                EventHandler.CallItemSelectedEvent(itemDetails,isSelected);//更新物品选中信息，取消选中
             }
             
-            itemAmount = 0;//设置数量为0
-            slotImage.enabled = false;//关闭图片显示
+            itemDetails = null;//清空物品详情
             moneyAmountText.text = string.Empty;//清空文字
+            slotImage.enabled = false;//关闭图片显示
             button.interactable = false;//取消按键可交互
         }
         
@@ -83,7 +84,7 @@ namespace T_Saga
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (itemAmount == 0) return;
+            if (itemDetails == null) return;
             isSelected = !isSelected;
             inventoryUI.UpdateSlotHighlight(slotIndex);
 
