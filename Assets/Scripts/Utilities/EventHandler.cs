@@ -64,6 +64,16 @@ public static class EventHandler
     {
         GameHourEvent?.Invoke(hour, day, month, year, season);
     }
+
+    /// <summary>
+    /// 每天更新一次，用于更新种植
+    /// </summary>
+    public static event Action<int,Season> GameDayEvent;
+    public static void CallGameDayEvent(int day,Season season)
+    {
+        GameDayEvent?.Invoke(day, season);
+    }
+
     #endregion
 
     #region 场景切换

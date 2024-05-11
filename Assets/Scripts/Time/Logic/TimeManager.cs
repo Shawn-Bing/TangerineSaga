@@ -34,13 +34,20 @@ public class TimeManager : MonoBehaviour
             }
         }
         
-        // 金手指，按住就加1分钟
+        // FIXME：金手指，按住就加1分钟
         if(Input.GetKey(KeyCode.T))
         {
             for(int i=0;i < 60;i++)
             {
                 UpdateGameTime();
             }
+        }
+        // FIXME：金手指，增加1天,但不能增加月份
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            gameDay++;
+            EventHandler.CallGameDayEvent(gameDay,gameSeason);
+            EventHandler.CallGameHourEvent(gameHour,gameDay,gameMonth,gameYear,gameSeason);
         }
     }
 
@@ -115,9 +122,12 @@ public class TimeManager : MonoBehaviour
                                 gameYear = (int)2024;
                             }
                         }
+                        
+                        //每天更新地图类型和农作物成长状态
+                        EventHandler.CallGameDayEvent(gameDay,gameSeason);
                     }
                 }
-                // 呼叫事件，更新日期（日期关联到更上级）
+                // 呼叫事件，更新游戏日期（日期关联到更上级）
                 EventHandler.CallGameHourEvent(gameHour,gameDay,gameMonth,gameYear,gameSeason);
             }
             // 更新分钟

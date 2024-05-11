@@ -20,6 +20,9 @@ namespace T_Saga.Map
         //TODO:引擎中赋值
         public List<MapData_SO> mapDataList;
         
+        //存放当前季节
+        private Season currentSeason;
+        
         // 字典存放场景名，坐标和对应的瓦片信息
         private Dictionary<string, TileDetails> tileDetailsDict = new Dictionary<string, TileDetails>();
 
@@ -35,9 +38,11 @@ namespace T_Saga.Map
         #region 注册函数方法
         private void OnEnable() {
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadedEvent;
+            EventHandler.GameDayEvent += OnGameDayEvent;
         }
         private void OnDisable() {
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadedEvent;
+            EventHandler.GameDayEvent -= OnGameDayEvent;
         }
         private void OnAfterSceneLoadedEvent()
         {
@@ -45,8 +50,41 @@ namespace T_Saga.Map
             farmTilemap = GameObject.FindWithTag("FarmLand").GetComponent<Tilemap>();
             waterTilemap = GameObject.FindWithTag("FarmWater").GetComponent<Tilemap>();
 
-            // 写入地图数据（Tiles类型）
+            // 写入地图数据（Tiles类型）也可以用Refesh
             ShowMapDetails(SceneManager.GetActiveScene().name);
+        }
+
+        /// <summary>
+        /// 每天刷新地图网格信息
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="season"></param>
+        private void OnGameDayEvent(int day, Season season)
+        {
+            currentSeason = season;
+
+            foreach (var tile in tileDetailsDict)
+            {
+                // 每天清空浇水数据
+                if (tile.Value.daysSinceWatered > -1)
+                {tile.Value.daysSinceWatered = -1;}
+                // 每天增加锄地日期
+                if (tile.Value.daysSinceDug > -1)
+                {tile.Value.daysSinceDug++;}
+                
+                // n天不锄地且没种作物时恢复为普通土地
+                if (tile.Value.daysSinceDug > Settings.maxFarmLandIdleDay && tile.Value.seedItemID == -1)
+                {
+                    tile.Value.daysSinceDug = -1;
+                    tile.Value.canDig = true;
+                    tile.Value.growthDays = -1;
+                }
+                // 种下作物时开始计时
+                if (tile.Value.seedItemID != -1)
+                {tile.Value.growthDays++;}
+            }
+
+            RefreshMap();
         }
         #endregion
 
@@ -181,6 +219,21 @@ namespace T_Saga.Map
                     // TODO:种子
                 }
             }
+        }
+
+        /// <summary>
+        /// 刷新地图瓦片数据
+        /// </summary>
+        private void RefreshMap()
+        {
+            // 清空瓦片
+            if(farmTilemap != null)
+                {farmTilemap.ClearAllTiles();}
+            if(waterTilemap != null)
+                {waterTilemap.ClearAllTiles();}
+            
+            // 重新载入瓦片信息
+            ShowMapDetails(SceneManager.GetActiveScene().name);
         }
     }
 }

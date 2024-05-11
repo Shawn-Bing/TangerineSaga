@@ -21,4 +21,7 @@ public class Settings
     public const int dayHold = 30;
     public const int seasonHold = 3;
     public const int monthInSeason = 3;
+
+    // 种地参数
+    public const int maxFarmLandIdleDay = 5;
 }

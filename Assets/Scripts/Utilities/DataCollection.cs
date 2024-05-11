@@ -97,9 +97,9 @@ public class TileDetails
     public bool isNPCObstacle;
 
     // Grid 计时变量
-    public int daysSinceDug = -1;
-    public int daysSinceWatered = -1;
-    public int seedItemID = -1;
-    public int growthDays = -1;
+    public int daysSinceDug = -1;       //锄地
+    public int daysSinceWatered = -1;   //浇水
+    public int seedItemID = -1;         //种子ID,-1意味着没种任何东西
+    public int growthDays = -1;         //生长日期
     public int daysSinceLastHarvest = -1;// 可重复收割
 }
