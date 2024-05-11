@@ -57,6 +57,13 @@ public class AnimatorOverride : MonoBehaviour
         {
             ItemType.Seed => HoldType.Carry,
             ItemType.Commodity => HoldType.Carry,
+            ItemType.HoeTool => HoldType.Hoe,
+            ItemType.WaterTool => HoldType.Water,
+            ItemType.CollectTool => HoldType.Collect,
+            ItemType.ChopTool => HoldType.Chop,
+            ItemType.BreakTool => HoldType.Break,
+            ItemType.ReapTool => HoldType.Reap,
+            ItemType.Furniture => HoldType.Carry,
             _ => HoldType.None
         };
 

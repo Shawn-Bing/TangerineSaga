@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -15,20 +16,30 @@ public class Player : MonoBehaviour
     private bool canPlayerMove;//是否允许玩家移动
     [Header("人物动画")]
     private bool isMoving;
+
+    [Header("人物工具动画")]
+    private float toolMouseX;
+    private float toolMouseY;
+    private bool useTool;
+
     private Animator[] animators;//创建数组获取Player身上全部Animator
 
+    
     /// <summary>
     /// 切换人物动画
     /// </summary>
     private void SwitchAnimation()
     {
-        foreach(var ani in animators)
+        foreach (var anim in animators)
         {
-            ani.SetBool("isMoving", isMoving);
-            if(isMoving)
+            anim.SetBool("isMoving", isMoving);
+            anim.SetFloat("toolMouseX", toolMouseX);
+            anim.SetFloat("toolMouseY", toolMouseY);
+
+            if (isMoving)
             {
-                ani.SetFloat("InputX", inputX);
-                ani.SetFloat("InputY", inputY);
+                anim.SetFloat("InputX", inputX);
+                anim.SetFloat("InputY", inputY);
             }
         }
     }
@@ -124,10 +135,56 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="pos">鼠标所指的世界坐标</param>
     /// <param name="itemDetails">选中物品详情</param>
-    private void OnMouseClickedEvent(Vector3 pos, ItemDetails itemDetails)
+    private void OnMouseClickedEvent(Vector3 mouseWorldPos, ItemDetails itemDetails)
     {
+        if (useTool)
+            return;
+
+        //TODO:执行动画
+        // 若所选物品类型为工具（非种子、商品、家具）
+        if (itemDetails.itemType != ItemType.Seed && itemDetails.itemType != ItemType.Commodity && itemDetails.itemType != ItemType.Furniture)
+        {
+            toolMouseX = mouseWorldPos.x - transform.position.x;
+            toolMouseY = mouseWorldPos.y - (transform.position.y + 0.85f);
+
+            // 将斜向改为左右
+            if (Mathf.Abs(toolMouseX) > Mathf.Abs(toolMouseY))
+                toolMouseY = 0;
+            else
+                toolMouseX = 0;
+
+            StartCoroutine(UseToolRoutine(mouseWorldPos, itemDetails));
+        }
+        else
+        {
         // 在播放动画之后再执行，否则刚播放砍树动画，树就倒下了
-        EventHandler.CallExecuteActionAfterAnimation(pos, itemDetails);
+        EventHandler.CallExecuteActionAfterAnimation(mouseWorldPos, itemDetails);
+        }
+    }
+
+    private IEnumerator UseToolRoutine(Vector3 mouseWorldPos, ItemDetails itemDetails)
+    {
+        useTool = true;
+        canPlayerMove = false;
+        yield return null;
+        // 确保执行完毕
+
+        foreach (var anim in animators)
+        {
+            anim.SetTrigger("useTool");
+            //将使用工具时人物的面朝方向链接到人物本来的运动方向
+            anim.SetFloat("InputX", toolMouseX);
+            anim.SetFloat("InputY", toolMouseY);
+        }
+        //等待时间然后执行
+        //FIXME:根据动画时间设定等待时间的值
+        yield return new WaitForSeconds(0.45f);
+        EventHandler.CallExecuteActionAfterAnimation(mouseWorldPos, itemDetails);
+        yield return new WaitForSeconds(0.25f);
+        
+        // 等待动画结束
+        useTool = false;
+        canPlayerMove = true;
     }
 
     #endregion

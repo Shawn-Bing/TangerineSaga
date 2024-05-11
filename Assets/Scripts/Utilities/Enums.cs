@@ -34,7 +34,9 @@ public enum InventoryLocation
 // 人物举起状态
 public enum HoldType
 {
-    None, Carry
+    None,  //默认状态，什么都没拿
+    Carry, //举起物品（选中物品时）
+    Hoe, Break, Water, Chop, Collect, Reap // 举起各种工具
 }
 
 // 人物身体部分名称
