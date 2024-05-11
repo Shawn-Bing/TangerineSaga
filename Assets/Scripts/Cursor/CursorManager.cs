@@ -231,6 +231,9 @@ public class CursorManager : MonoBehaviour
                         currentTile.daysSinceWatered = 0;
                         break;     
                 }
+
+                // 更新瓦片信息
+                GridMapManager.Instance.UpdataTileDetails(currentTile);
             }
         }
     #endregion

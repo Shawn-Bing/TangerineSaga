@@ -1523,6 +1523,7 @@ MonoBehaviour:
   waterTile: {fileID: 11400000, guid: 485d25515e28c4de9b4be399c83760c5, type: 2}
   mapDataList:
   - {fileID: 11400000, guid: 2b3b04fecf33e4f2fa06b2f99f32d690, type: 2}
+  - {fileID: 11400000, guid: 917144a8e36044fb88a7a4a4194d99d8, type: 2}
 --- !u!4 &2108008862
 Transform:
   m_ObjectHideFlags: 0

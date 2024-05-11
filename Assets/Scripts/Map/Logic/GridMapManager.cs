@@ -44,6 +44,9 @@ namespace T_Saga.Map
             // 获取锄地、浇水Tilemap
             farmTilemap = GameObject.FindWithTag("FarmLand").GetComponent<Tilemap>();
             waterTilemap = GameObject.FindWithTag("FarmWater").GetComponent<Tilemap>();
+
+            // 写入地图数据（Tiles类型）
+            ShowMapDetails(SceneManager.GetActiveScene().name);
         }
         #endregion
 
@@ -58,7 +61,7 @@ namespace T_Saga.Map
                     gridY = tileProperties.tileCoordinate.y
                 };
 
-                // 生成字典关键词
+                // 生成字典关键词，组合为第X格瓦片+第Y格瓦片+场景名称
                 string key = tileDetails.girdX + "x" + tileDetails.gridY + "y" + mapData.SceneName;
 
                 // 根据关键词返回Tile信息
@@ -68,6 +71,7 @@ namespace T_Saga.Map
                 }
 
                 // 为Bool变量重新赋值(刷新)
+                // TileDetails中包含了瓦片类型
                 switch (tileProperties.gridType)
                 {
                     case GridType.Diggable:
@@ -118,7 +122,6 @@ namespace T_Saga.Map
             return GetTileDetails(key);
         }
 
-
         /// <summary>
         /// 切换为锄地瓦片
         /// </summary>
@@ -139,6 +142,45 @@ namespace T_Saga.Map
             Vector3Int pos = new Vector3Int(tile.girdX, tile.gridY, 0);
             if (waterTilemap != null)
                 waterTilemap.SetTile(pos, waterTile);
+        }
+
+        /// <summary>
+        /// 切换瓦片之后，更新瓦片信息到字典中
+        /// </summary>
+        /// <param name="tileDetails">瓦片类型</param>
+        public void UpdataTileDetails(TileDetails tileDetails)
+        {
+            string key = tileDetails.girdX + "x" + tileDetails.gridY + "y" + SceneManager.GetActiveScene().name;
+            if (tileDetailsDict.ContainsKey(key))
+            {
+                tileDetailsDict[key] = tileDetails;
+            }
+            else
+            {
+                tileDetailsDict.Add(key, tileDetails);
+            }
+        }
+
+        /// <summary>
+        /// 加载场景后，将原有地图数据写入该场景
+        /// </summary>
+        /// <param name="sceneName"></param>
+        public void ShowMapDetails(string sceneName)
+        {
+            foreach (var tile in tileDetailsDict)
+            {
+                var key = tile.Key;
+                var tileDetails = tile.Value;
+
+                if (key.Contains(sceneName))
+                {
+                    if (tileDetails.daysSinceDug > -1)
+                        SetFarmGround(tileDetails);
+                    if (tileDetails.daysSinceWatered > -1)
+                        SetWaterGround(tileDetails);
+                    // TODO:种子
+                }
+            }
         }
     }
 }

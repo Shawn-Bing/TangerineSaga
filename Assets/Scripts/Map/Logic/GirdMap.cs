@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEditor;
 
+//TODO:挂载该组件到每一个Grid Properties物体上，为新场景添加Map_SO文件，设置对应Type
 [ExecuteInEditMode]
 public class GridMap : MonoBehaviour
 {
+    //TODO：引擎中赋值
     public MapData_SO mapData;
     public GridType gridType;
     private Tilemap currentTilemap;
