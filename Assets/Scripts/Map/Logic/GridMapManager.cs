@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 namespace T_Saga.Map
 {
     //所有Manager都要挂载到Persistant Scene object上
     public class GridMapManager : Singleton<GridMapManager>
     {
-        [Header("地图")]
+        [Header("切换到锄地浇水瓦片")]
+        //TODO：引擎中赋值
+        public RuleTile farmTile;
+        public RuleTile waterTile;
+        private Tilemap farmTilemap;
+        private Tilemap waterTilemap;
+
+        [Header("地图信息")]
         //TODO:引擎中赋值
         public List<MapData_SO> mapDataList;
         
@@ -23,6 +31,21 @@ namespace T_Saga.Map
                 InitTileDetailsDict(mapData);
             }
         }
+
+        #region 注册函数方法
+        private void OnEnable() {
+            EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadedEvent;
+        }
+        private void OnDisable() {
+            EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadedEvent;
+        }
+        private void OnAfterSceneLoadedEvent()
+        {
+            // 获取锄地、浇水Tilemap
+            farmTilemap = GameObject.FindWithTag("FarmLand").GetComponent<Tilemap>();
+            waterTilemap = GameObject.FindWithTag("FarmWater").GetComponent<Tilemap>();
+        }
+        #endregion
 
         // 生成地图信息字典（可刷新）
         private void InitTileDetailsDict(MapData_SO mapData)
@@ -93,6 +116,29 @@ namespace T_Saga.Map
         {
             string key = mouseGridPos.x + "x" + mouseGridPos.y + "y" + SceneManager.GetActiveScene().name;
             return GetTileDetails(key);
+        }
+
+
+        /// <summary>
+        /// 切换为锄地瓦片
+        /// </summary>
+        /// <param name="tile">存坐标</param>
+        public void SetFarmGround(TileDetails tile)
+        {
+            Vector3Int pos = new Vector3Int(tile.girdX, tile.gridY, 0);
+            if (farmTilemap != null)
+                farmTilemap.SetTile(pos, farmTile);
+        }
+
+        /// <summary>
+        /// 切换为浇水瓦片
+        /// </summary>
+        /// <param name="tile">存坐标</param>
+        public void SetWaterGround(TileDetails tile)
+        {
+            Vector3Int pos = new Vector3Int(tile.girdX, tile.gridY, 0);
+            if (waterTilemap != null)
+                waterTilemap.SetTile(pos, waterTile);
         }
     }
 }

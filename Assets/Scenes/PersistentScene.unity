@@ -1406,6 +1406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 549737d815ddd4af6a61b8bfd7711093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  farmTile: {fileID: 11400000, guid: 7fb1c880ea68140beb7eda8d6dd939ce, type: 2}
+  waterTile: {fileID: 11400000, guid: 485d25515e28c4de9b4be399c83760c5, type: 2}
   mapDataList:
   - {fileID: 11400000, guid: 2b3b04fecf33e4f2fa06b2f99f32d690, type: 2}
 --- !u!4 &2108008862

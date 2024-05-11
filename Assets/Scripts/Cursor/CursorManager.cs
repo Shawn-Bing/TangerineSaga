@@ -58,7 +58,7 @@ public class CursorManager : MonoBehaviour
             //选中物体时传递Tile信息
             currentItem = itemDetails;
 
-            //TODO::添加所有类型对应Cursor图片
+            //FIXME: 添加所有类型对应Cursor图片
             currentSprite = itemDetails.itemType switch
             {
                 ItemType.Seed => seed,
@@ -165,18 +165,21 @@ public class CursorManager : MonoBehaviour
 
         if (currentTile != null)//若当前选中的瓦片有信息（如canDig、CanDrop)
         {
+            //FIXME: 补全切换鼠标可用情况
             // 切换Tile信息
             switch(currentItem.itemType)
             {
                 case ItemType.Commodity:
-                    if (currentTile.canDropItem && currentItem.canDropped)
-                    {
-                        SetCursorValid();
-                    }
-                    else
-                    {
-                        SetCursorInValid();
-                    }
+                    if (currentTile.canDropItem && currentItem.canDropped){SetCursorValid();}
+                    else{SetCursorInValid();}
+                    break;
+                case ItemType.HoeTool:
+                    if (currentTile.canDig){SetCursorValid();} 
+                    else {SetCursorInValid();}
+                    break;
+                case ItemType.WaterTool:
+                    if (currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1) {SetCursorValid();}
+                    else {SetCursorInValid();}
                     break;
             }
         }
@@ -210,12 +213,23 @@ public class CursorManager : MonoBehaviour
 
             if (currentTile != null)
             {
-                //TODO:添加物品/工具实际功能
+                //FIXME: 补全物品/工具实际功能
                 switch (itemDetails.itemType)
                 {
                     case ItemType.Commodity:
                         EventHandler.CallDropItemEvent(itemDetails.itemID, mouseWorldPos);
-                        break;         
+                        break;    
+                    case ItemType.HoeTool:
+                        GridMapManager.Instance.SetFarmGround(currentTile);
+                        currentTile.daysSinceDug = 0;
+                        currentTile.canDig = false;
+                        currentTile.canDropItem = false;
+                        //TODO:加音效
+                        break;
+                    case ItemType.WaterTool:
+                        GridMapManager.Instance.SetWaterGround(currentTile);
+                        currentTile.daysSinceWatered = 0;
+                        break;     
                 }
             }
         }

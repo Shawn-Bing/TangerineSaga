@@ -51,7 +51,7 @@ public class AnimatorOverride : MonoBehaviour
 
     private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
     {
-        // TODO:不同的物品类型返回不同的动画，其余类型在此处补全
+        // FIXME: 补全不同物品类型对应的动画
         // 暂时只设置种子和商品可以举起
         HoldType currentType = itemDetails.itemType switch
         {
