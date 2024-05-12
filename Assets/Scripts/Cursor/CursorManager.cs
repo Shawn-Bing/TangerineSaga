@@ -182,7 +182,7 @@ public class CursorManager : MonoBehaviour
                     else {SetCursorInValid();}
                     break;
                 case ItemType.Seed:
-                    if(currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1){SetCursorValid();}
+                    if(currentTile.daysSinceDug > -1 && currentTile.seedItemID == -1){SetCursorValid();}
                     else {SetCursorInValid();}
                     break;
             }
