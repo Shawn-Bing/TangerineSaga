@@ -108,17 +108,20 @@ namespace T_Saga.Herbal
             }
 
             // 获取当前成长阶段的Prefab
-            GameObject cropPrefab = currentHerbalSeed.growthPrefabs[currentStage];
-            Sprite cropSprite = currentHerbalSeed.growthSprites[currentStage];
+            GameObject herbPrefab = currentHerbalSeed.growthPrefabs[currentStage];
+            Sprite herbSprite = currentHerbalSeed.growthSprites[currentStage];
 
             // 使作物固定在Tile中间（要修改Sprite锚点）
             Vector3 pos = new Vector3(tileDetails.girdX + 0.5f, tileDetails.gridY + 0.5f, 0);
 
             // 生成作物
-            GameObject herbalInstance = Instantiate(cropPrefab, pos, Quaternion.identity, herbalParent);
+            GameObject herbalInstance = Instantiate(herbPrefab, pos, Quaternion.identity, herbalParent);
             
             // 添加图片
-            herbalInstance.GetComponentInChildren<SpriteRenderer>().sprite = cropSprite;
+            herbalInstance.GetComponentInChildren<SpriteRenderer>().sprite = herbSprite;
+
+            // 给种子ID赋值
+            herbalInstance.GetComponent<Herb>().herbalDetails = currentHerbalSeed;
         }
     }
 }

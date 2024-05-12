@@ -60,7 +60,7 @@ public class HerbalDetails
 
 
     /// <summary>
-    /// 检查当前工具是否可用
+    /// 检查当前工具是否符合收获作物所用工具限制
     /// </summary>
     /// <param name="toolID">工具ID</param>
     /// <returns></returns>

@@ -682,6 +682,12 @@ MonoBehaviour:
   - holdType: 1
     partName: 2
     overrideController: {fileID: 22100000, guid: 144f88e1c9629401ea547394ab12d248, type: 2}
+  - holdType: 4
+    partName: 2
+    overrideController: {fileID: 22100000, guid: 56d7114b4b9b045828fdc58ae0eaf7ec, type: 2}
+  - holdType: 6
+    partName: 2
+    overrideController: {fileID: 22100000, guid: f32e63a64d24a46b18cbc7a2adbe6e9a, type: 2}
   - holdType: 0
     partName: 3
     overrideController: {fileID: 22100000, guid: 6652a5894701c4423937e53e133619c2, type: 2}

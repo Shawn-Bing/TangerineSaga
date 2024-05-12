@@ -84,8 +84,6 @@ public class AnimatorOverride : MonoBehaviour
             {
                 //切换非举起道具时取消Carry状态
                 holdItem.enabled = false;
-                //FIXME:工具动画调整
-                currentType = HoldType.None;
             }
         }
 
@@ -98,11 +96,15 @@ public class AnimatorOverride : MonoBehaviour
     /// <param name="holdType"></param>
     private void SwitchAnimator(HoldType holdType)
     {
-        foreach (var anim in animatorTypes)
+        foreach (var item in animatorTypes)
         {
-            if (anim.holdType == holdType)
+            if (item.holdType == holdType)
             {
-                animatorNameDict[anim.partName.ToString()].runtimeAnimatorController = anim.overrideController;
+                animatorNameDict[item.partName.ToString()].runtimeAnimatorController = item.overrideController;
+            }
+            else if (item.holdType == HoldType.None)
+            {
+                animatorNameDict[item.partName.ToString()].runtimeAnimatorController = item.overrideController;
             }
         }
     }

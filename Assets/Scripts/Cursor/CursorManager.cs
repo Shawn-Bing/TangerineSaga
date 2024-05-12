@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using T_Saga.Map;
+using T_Saga.Herbal;
 using System;
 
 public class CursorManager : MonoBehaviour
@@ -165,6 +166,9 @@ public class CursorManager : MonoBehaviour
 
         if (currentTile != null)//若当前选中的瓦片有信息（如canDig、CanDrop)
         {
+            // 获取种子信息
+            HerbalDetails currentHerbalSeed = HerbalManager.Instance.GetHerbalSeedDetails(currentTile.seedItemID);
+            
             //FIXME: 补全切换鼠标可用情况
             // 切换Tile信息
             switch(currentItem.itemType)
@@ -184,6 +188,14 @@ public class CursorManager : MonoBehaviour
                 case ItemType.Seed:
                     if(currentTile.daysSinceDug > -1 && currentTile.seedItemID == -1){SetCursorValid();}
                     else {SetCursorInValid();}
+                    break;
+                case ItemType.CollectTool:
+                    //若 此处已种下种子&工具正确&已成熟
+                    if(currentHerbalSeed != null && currentHerbalSeed.CheckToolAvailable(currentItem.itemID))
+                    {   
+                        if(currentTile.growthDays >= currentHerbalSeed.TotalGrowthDays){SetCursorValid();}
+                        else{SetCursorInValid();}
+                    }
                     break;
             }
         }
@@ -239,6 +251,11 @@ public class CursorManager : MonoBehaviour
                         //更新背包内种子数量
                         EventHandler.CallDropItemEvent(itemDetails.itemID,mouseWorldPos,itemDetails.itemType);
                         break; 
+                    case ItemType.CollectTool:
+                        Herb currentHerb = GetHerbObject(mouseWorldPos);
+                        if(currentHerb != null)
+                            Debug.Log(currentHerb.herbalDetails.seedItemID);
+                        break;
                 }
 
                 // 更新瓦片信息
@@ -247,6 +264,28 @@ public class CursorManager : MonoBehaviour
         }
     #endregion
 
+    #region 获取作物Object
+
+    /// <summary>
+    /// 用碰撞检测获取鼠标位置的作物信息
+    /// </summary>
+    /// <param name="mouseWorldPos">鼠标坐标</param>
+    /// <returns></returns>
+    public Herb GetHerbObject(Vector3 mouseWorldPos)
+        {
+            //返回物品周围碰撞体
+            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos);
+            Herb currentHerb = null;
+
+            //遍历每个碰到的Herb并返回
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].GetComponent<Herb>())
+                    currentHerb = colliders[i].GetComponent<Herb>();
+            }
+            return currentHerb;
+        }
+    #endregion
 
     #region Start&Update
     private void Start()
