@@ -69,8 +69,11 @@ namespace T_Saga.Inventory
         /// <param name="ID"></param>
         /// <param name="mousePos"></param>
         /// <param name="itemType"></param>
-        private void OnDropItemEvent(int ID, Vector3 mousePos)
+        private void OnDropItemEvent(int ID, Vector3 mousePos,ItemType itemType)
         {
+            //用丢出物品实现种下种子时，不生成物品
+            if(itemType == ItemType.Seed)
+                return;
             //在人物旁边生成丢出的物品
             var item = Instantiate(bounceItemPrefab, PlayerTransform.position, Quaternion.identity, itemParent);
             item.itemID = ID;

@@ -221,7 +221,7 @@ public class CursorManager : MonoBehaviour
                 switch (itemDetails.itemType)
                 {
                     case ItemType.Commodity:
-                        EventHandler.CallDropItemEvent(itemDetails.itemID, mouseWorldPos);
+                        EventHandler.CallDropItemEvent(itemDetails.itemID, mouseWorldPos, ItemType.Commodity);
                         break;    
                     case ItemType.HoeTool:
                         GridMapManager.Instance.SetFarmGround(currentTile);
@@ -236,6 +236,8 @@ public class CursorManager : MonoBehaviour
                         break; 
                     case ItemType.Seed:
                         EventHandler.CallPlantSeedEvent(itemDetails.itemID,currentTile);
+                        //更新背包内种子数量
+                        EventHandler.CallDropItemEvent(itemDetails.itemID,mouseWorldPos,itemDetails.itemType);
                         break; 
                 }
 

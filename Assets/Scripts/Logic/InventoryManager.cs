@@ -23,7 +23,7 @@ namespace T_Saga.Inventory
             EventHandler.DropItemEvent -= OnDropItem;
         }
 
-        private void OnDropItem(int ID, Vector3 pos)
+        private void OnDropItem(int ID, Vector3 pos,ItemType itemType)
         {
             RemoveItem(ID, 1);
         }

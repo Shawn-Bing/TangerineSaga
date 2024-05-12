@@ -200,7 +200,8 @@ namespace T_Saga.Map
         }
 
         /// <summary>
-        /// 加载场景后，将原有地图数据写入该场景
+        /// 功能1.加载场景(首次)
+        /// 功能2.（切换场景）加载场景后，将原有地图数据写入该场景
         /// </summary>
         /// <param name="sceneName"></param>
         public void ShowMapDetails(string sceneName)
@@ -216,7 +217,8 @@ namespace T_Saga.Map
                         SetFarmGround(tileDetails);
                     if (tileDetails.daysSinceWatered > -1)
                         SetWaterGround(tileDetails);
-                    // TODO:种子
+                    if(tileDetails.seedItemID > -1)
+                       EventHandler.CallPlantSeedEvent(tileDetails.seedItemID,tileDetails);
                 }
             }
         }
@@ -231,8 +233,14 @@ namespace T_Saga.Map
                 {farmTilemap.ClearAllTiles();}
             if(waterTilemap != null)
                 {waterTilemap.ClearAllTiles();}
+
+            // 清空作物以便重载
+            foreach (var crop in FindObjectsOfType<Herb>())
+            {
+                Destroy(crop.gameObject);
+            }
             
-            // 重新载入瓦片信息
+            // 重新载入瓦片信息&瓦片种下的种子
             ShowMapDetails(SceneManager.GetActiveScene().name);
         }
     }

@@ -83,6 +83,11 @@ namespace T_Saga.Herbal
             return false;
         }
 
+        /// <summary>
+        /// 显示作物(附带刷新地图)
+        /// </summary>
+        /// <param name="tileDetails">当前Tile信息</param>
+        /// <param name="currentHerbalSeed">当前种下的种子</param>
         private void ShowHerbalPlant(TileDetails tileDetails, HerbalDetails currentHerbalSeed)
         {
             // 获取当前作物成长周期&阶段
