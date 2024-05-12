@@ -181,6 +181,10 @@ public class CursorManager : MonoBehaviour
                     if (currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1) {SetCursorValid();}
                     else {SetCursorInValid();}
                     break;
+                case ItemType.Seed:
+                    if(currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1){SetCursorValid();}
+                    else {SetCursorInValid();}
+                    break;
             }
         }
         else // 因为只标记了可丢弃物品区域，对未标注瓦片执行默认操作
@@ -205,7 +209,7 @@ public class CursorManager : MonoBehaviour
     #endregion
 
 
-    #region 执行功能
+    #region 执行功能(播放动画后)
     private void OnExecuteActionAfterAnimation(Vector3 mouseWorldPos, ItemDetails itemDetails)
         {
             var mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
@@ -229,7 +233,10 @@ public class CursorManager : MonoBehaviour
                     case ItemType.WaterTool:
                         GridMapManager.Instance.SetWaterGround(currentTile);
                         currentTile.daysSinceWatered = 0;
-                        break;     
+                        break; 
+                    case ItemType.Seed:
+                        EventHandler.CallPlantSeedEvent(itemDetails.itemID,currentTile);
+                        break; 
                 }
 
                 // 更新瓦片信息

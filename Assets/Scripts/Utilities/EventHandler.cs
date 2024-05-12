@@ -76,6 +76,17 @@ public static class EventHandler
 
     #endregion
 
+    #region 种植
+    /// <summary>
+    /// 我种下一颗种子
+    /// </summary>
+    public static event Action<int, TileDetails> PlantSeedEvent;
+    public static void CallPlantSeedEvent(int ID, TileDetails tile)
+    {
+        PlantSeedEvent?.Invoke(ID, tile);
+    }
+    #endregion
+
     #region 场景切换
     /// <summary>
     /// 带有位置移动的切换场景事件
