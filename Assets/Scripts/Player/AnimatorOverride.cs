@@ -72,13 +72,20 @@ public class AnimatorOverride : MonoBehaviour
         {
             currentType = HoldType.None;
             holdItem.enabled = false;// 关闭图片显示
-        }
+        }     
         else
         {
             if (currentType == HoldType.Carry)
             {
                 holdItem.sprite = itemDetails.itemOnWorldSprite;// 设置图片为选中图
                 holdItem.enabled = true;// 使图片可见
+            }
+            else
+            {
+                //切换非举起道具时取消Carry状态
+                holdItem.enabled = false;
+                //FIXME:工具动画调整
+                currentType = HoldType.None;
             }
         }
 
