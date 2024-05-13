@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 3007517161007034769}
   - component: {fileID: 4774653686054259024}
   - component: {fileID: 1306473727276745236}
+  - component: {fileID: -5669949958055750475}
   m_Layer: 0
   m_Name: CutableTree02
   m_TagString: Untagged
@@ -189,6 +190,48 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.6101909, y: 7.152624}
   m_EdgeRadius: 0
+--- !u!114 &-5669949958055750475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725566955042304404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2067214de3d4541b5fb4e0508edb24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  herbalDetails:
+    seedItemID: 0
+    growthDays: 
+    growthPrefabs: []
+    growthSprites: []
+    seasons: 
+    harvestToolItemID: 
+    requireActionCount: 
+    transferItemID: 0
+    producedItemID: 
+    producedMinAmount: 
+    producedMaxAmount: 
+    spawnRadius: {x: 0, y: 0}
+    daysToRegrow: 0
+    maxRegrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAnimation: 0
+    hasParticalEffect: 0
+  tileDetails:
+    girdX: 0
+    gridY: 0
+    canDig: 0
+    canDropItem: 0
+    canPlaceFurniture: 0
+    isNPCObstacle: 0
+    daysSinceDug: -1
+    daysSinceWatered: -1
+    seedItemID: -1
+    growthDays: -1
+    daysSinceLastHarvest: -1
 --- !u!1 &7004829582182713888
 GameObject:
   m_ObjectHideFlags: 0

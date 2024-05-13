@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Settings
 {
+    // Player 修正值
+    public const float playerAnimaitonHeightOffset = 0.85f;
+    public const float playerBeforeToolAnimaitonWaitTime = 0.45f;
+    public const float playerAfterToolAnimaitonWaitTime = 0.25f;
+
     // ItemFade参数
     public const float itemFadeDuration = 0.35f;
     public const float targetAlpha = 0.45f;

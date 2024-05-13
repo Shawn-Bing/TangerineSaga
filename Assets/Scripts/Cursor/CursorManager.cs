@@ -168,6 +168,7 @@ public class CursorManager : MonoBehaviour
         {
             // 获取种子信息
             HerbalDetails currentHerbalSeed = HerbalManager.Instance.GetHerbalSeedDetails(currentTile.seedItemID);
+            Herb herb = GetHerbObject(mouseWorldPos);
             
             //FIXME: 补全切换鼠标可用情况
             // 切换Tile信息
@@ -188,6 +189,14 @@ public class CursorManager : MonoBehaviour
                 case ItemType.Seed:
                     if(currentTile.daysSinceDug > -1 && currentTile.seedItemID == -1){SetCursorValid();}
                     else {SetCursorInValid();}
+                    break;
+                case ItemType.ChopTool:
+                    if (herb != null && herb.CanHarvest)
+                    {
+                        if (herb.herbalDetails.CheckToolAvailable(currentItem.itemID)) SetCursorValid(); 
+                        else SetCursorInValid();
+                    }
+                    else SetCursorInValid();
                     break;
                 case ItemType.CollectTool:
                     //若 此处已种下种子&工具正确&已成熟
@@ -229,6 +238,9 @@ public class CursorManager : MonoBehaviour
 
             if (currentTile != null)
             {
+                //获取当前种子
+                Herb currentHerb = GetHerbObject(mouseWorldPos);
+
                 //FIXME: 补全物品/工具实际功能
                 switch (itemDetails.itemType)
                 {
@@ -251,8 +263,10 @@ public class CursorManager : MonoBehaviour
                         //更新背包内种子数量
                         EventHandler.CallDropItemEvent(itemDetails.itemID,mouseWorldPos,itemDetails.itemType);
                         break; 
+                    case ItemType.ChopTool:
+                        currentHerb?.ExecuteToolAction(itemDetails, currentHerb.tileDetails);
+                        break;
                     case ItemType.CollectTool:
-                        Herb currentHerb = GetHerbObject(mouseWorldPos);
                         // 执行收获,传入itemDetails的工具类型
                         currentHerb.ExecuteToolAction(itemDetails,currentTile);
                         break;

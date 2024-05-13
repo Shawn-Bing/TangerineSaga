@@ -122,6 +122,9 @@ namespace T_Saga.Herbal
 
             // 给种子ID赋值
             herbalInstance.GetComponent<Herb>().herbalDetails = currentHerbalSeed;
+
+            // 获取地图详情
+            herbalInstance.GetComponent<Herb>().tileDetails = tileDetails;
         }
     }
 }

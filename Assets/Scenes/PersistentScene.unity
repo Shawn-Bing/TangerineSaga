@@ -694,6 +694,9 @@ MonoBehaviour:
   - holdType: 2
     partName: 3
     overrideController: {fileID: 22100000, guid: a21859889765948e7876a455cd0fd874, type: 2}
+  - holdType: 5
+    partName: 3
+    overrideController: {fileID: 22100000, guid: 340ebc5b3dabc44dc91ad05891b0afe4, type: 2}
 --- !u!1 &588316104
 GameObject:
   m_ObjectHideFlags: 0

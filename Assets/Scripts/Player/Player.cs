@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
         if (itemDetails.itemType != ItemType.Seed && itemDetails.itemType != ItemType.Commodity && itemDetails.itemType != ItemType.Furniture)
         {
             toolMouseX = mouseWorldPos.x - transform.position.x;
-            toolMouseY = mouseWorldPos.y - (transform.position.y + 0.85f);
+            toolMouseY = mouseWorldPos.y - (transform.position.y + Settings.playerAnimaitonHeightOffset);
 
             // 将斜向改为左右
             if (Mathf.Abs(toolMouseX) > Mathf.Abs(toolMouseY))
@@ -178,9 +178,9 @@ public class Player : MonoBehaviour
         }
         //等待时间然后执行
         //FIXME:根据动画时间设定等待时间的值
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(Settings.playerBeforeToolAnimaitonWaitTime);
         EventHandler.CallExecuteActionAfterAnimation(mouseWorldPos, itemDetails);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(Settings.playerAfterToolAnimaitonWaitTime);
         
         // 等待动画结束
         useTool = false;
