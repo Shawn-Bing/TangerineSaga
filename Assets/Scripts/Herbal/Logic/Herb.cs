@@ -9,12 +9,6 @@ public class Herb : MonoBehaviour
     public TileDetails tileDetails;
     // 用来计算收获的点击次数
     private int harvestActionCount;
-    public bool CanHarvest => tileDetails.growthDays >= herbalDetails.TotalGrowthDays;
-
-    private Animator anim;
-
-    private Transform PlayerTransform => FindObjectOfType<Player>().transform;
-    
     
 
     public void ExecuteToolAction(ItemDetails tool)
@@ -22,9 +16,7 @@ public class Herb : MonoBehaviour
         //工具使用次数
         int requireActionCount = herbalDetails.GetTotalRequireCount(tool.itemID);
         if (requireActionCount == -1) return;
-
-        anim = GetComponentInChildren<Animator>();
-
+        
         //点击计数器
         if (harvestActionCount < requireActionCount)
         {
