@@ -24,4 +24,5 @@ public class Settings
 
     // 种地参数
     public const int maxFarmLandIdleDay = 5;
+    public const float harvestHoldTime = 0.3f;
 }

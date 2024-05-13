@@ -15,17 +15,30 @@ namespace T_Saga.Inventory
         public InventoryRepo_SO playerBag;
 
 
-        #region 注册扔出物品事件
+        #region 注册扔出物品、收获作物事件
         private void OnEnable() {
             EventHandler.DropItemEvent += OnDropItem;
+            EventHandler.HarvestAtPlayerPosition += OnCallHarvestAtPlayerPosition;
         }
+
         private void OnDisable() {
             EventHandler.DropItemEvent -= OnDropItem;
+            EventHandler.HarvestAtPlayerPosition -= OnCallHarvestAtPlayerPosition;
         }
 
         private void OnDropItem(int ID, Vector3 pos,ItemType itemType)
         {
             RemoveItem(ID, 1);
+        }
+
+        private void OnCallHarvestAtPlayerPosition(int ID)
+        {
+            // 直接向背包中添加物品
+            var index = GetItemIndexInBag(ID);
+            AddItemAtIndex(ID, index, 1);
+
+            // 更新背包UI
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.PlayerBag, playerBag.itemList);
         }
         #endregion
 

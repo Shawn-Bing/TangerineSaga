@@ -253,8 +253,8 @@ public class CursorManager : MonoBehaviour
                         break; 
                     case ItemType.CollectTool:
                         Herb currentHerb = GetHerbObject(mouseWorldPos);
-                        if(currentHerb != null)
-                            Debug.Log(currentHerb.herbalDetails.seedItemID);
+                        // 执行收获,传入itemDetails的工具类型
+                        currentHerb.ExecuteToolAction(itemDetails);
                         break;
                 }
 

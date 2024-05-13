@@ -85,6 +85,15 @@ public static class EventHandler
     {
         PlantSeedEvent?.Invoke(ID, tile);
     }
+
+    /// <summary>
+    /// 在玩家坐标处生成物品(作物)
+    /// </summary>
+    public static event Action<int> HarvestAtPlayerPosition;
+    public static void CallHarvestAtPlayerPositionEvent(int ID)
+    {
+        HarvestAtPlayerPosition?.Invoke(ID);
+    }
     #endregion
 
     #region 场景切换

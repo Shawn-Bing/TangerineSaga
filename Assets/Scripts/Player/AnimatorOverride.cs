@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using T_Saga.Inventory;
 
 // 获取OverrideAnimator 控制切换玩家动画
 public class AnimatorOverride : MonoBehaviour
@@ -25,18 +26,46 @@ public class AnimatorOverride : MonoBehaviour
         }
     }
 
-    #region 注册物品选中事件
+    #region 注册物品选中、收获作物事件
 
     private void OnEnable()
     {
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
         EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventHandler.HarvestAtPlayerPosition += OnHarvestAtPlayerPosition;
     }
 
     private void OnDisable()
     {
         EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
         EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventHandler.HarvestAtPlayerPosition -= OnHarvestAtPlayerPosition;
+    }
+
+    /// <summary>
+    /// 相当于选中收获的作物并举起
+    /// </summary>
+    /// <param name="ID"></param>
+    private void OnHarvestAtPlayerPosition(int ID)
+    {
+        Sprite itemSprite = InventoryManager.Instance.GetItemDetails(ID)?.itemOnWorldSprite;
+        if (holdItem.enabled == false)
+        {
+            StartCoroutine(HarvestItem(itemSprite));
+        }
+    }
+    /// <summary>
+    /// 协程，在收获作物后举起一段时间再取消举起
+    /// </summary>
+    /// <param name="itemSprite"></param>
+    /// <returns></returns>
+    private IEnumerator HarvestItem(Sprite itemSprite)
+    {
+        holdItem.sprite = itemSprite;
+        holdItem.enabled = true;
+        //FIXME：在Setting中设置这个时间
+        yield return new WaitForSeconds(Settings.harvestHoldTime);
+        holdItem.enabled = false;
     }
 
     /// <summary>
