@@ -50,7 +50,7 @@ public class HerbalDetails
     public Vector2 spawnRadius;
 
     [Header("重复收割")]
-    public int daysToRegrow;//天数
+    public int daysToRegrow;//重新生长天数
     public int maxRegrowTimes;//最大重收割次数
 
     [Header("特殊属性")]

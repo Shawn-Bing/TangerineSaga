@@ -39,10 +39,12 @@ namespace T_Saga.Map
         private void OnEnable() {
             EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadedEvent;
             EventHandler.GameDayEvent += OnGameDayEvent;
+            EventHandler.RefreshCurrentMap += RefreshMap;//刷新重复收割作物
         }
         private void OnDisable() {
             EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadedEvent;
             EventHandler.GameDayEvent -= OnGameDayEvent;
+            EventHandler.RefreshCurrentMap -= RefreshMap;
         }
         private void OnAfterSceneLoadedEvent()
         {

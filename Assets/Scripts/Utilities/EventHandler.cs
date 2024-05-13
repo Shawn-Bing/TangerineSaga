@@ -94,6 +94,16 @@ public static class EventHandler
     {
         HarvestAtPlayerPosition?.Invoke(ID);
     }
+
+    /// <summary>
+    /// 刷新地图
+    /// 用于刷新可重复收割作物
+    /// </summary>
+    public static event Action RefreshCurrentMap;
+    public static void CallRefreshCurrentMap()
+    {
+        RefreshCurrentMap?.Invoke();
+    }
     #endregion
 
     #region 场景切换

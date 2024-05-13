@@ -101,5 +101,5 @@ public class TileDetails
     public int daysSinceWatered = -1;   //浇水
     public int seedItemID = -1;         //种子ID,-1意味着没种任何东西
     public int growthDays = -1;         //生长日期
-    public int daysSinceLastHarvest = -1;// 可重复收割
+    public int daysSinceLastHarvest = -1;// 可重复收割标识，记录重复收割次数
 }

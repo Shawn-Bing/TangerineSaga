@@ -254,7 +254,7 @@ public class CursorManager : MonoBehaviour
                     case ItemType.CollectTool:
                         Herb currentHerb = GetHerbObject(mouseWorldPos);
                         // 执行收获,传入itemDetails的工具类型
-                        currentHerb.ExecuteToolAction(itemDetails);
+                        currentHerb.ExecuteToolAction(itemDetails,currentTile);
                         break;
                 }
 

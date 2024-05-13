@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using T_Saga.Map;
 using UnityEngine;
 
 // 收割
 public class Herb : MonoBehaviour
 {
     public HerbalDetails herbalDetails;
+    // 存放Tile信息
     public TileDetails tileDetails;
     // 用来计算收获的点击次数
     private int harvestActionCount;
+
+
     
 
-    public void ExecuteToolAction(ItemDetails tool)
+    public void ExecuteToolAction(ItemDetails tool,TileDetails tile)
     {
+        tile = tileDetails;
         //工具使用次数
         int requireActionCount = herbalDetails.GetTotalRequireCount(tool.itemID);
         if (requireActionCount == -1) return;
@@ -39,11 +44,11 @@ public class Herb : MonoBehaviour
     }
 
     /// <summary>
-    /// 生成果实
+    /// 实现收获作物，生成果实
     /// </summary>
     public void SpawnHarvestItems()
     {
-        // 遍历生成物品数组
+        // 遍历生成物品数组，生成物品
         for (int i = 0; i < herbalDetails.producedItemID.Length; i++)
         {
             // 创建生成数量的临时变量
@@ -73,6 +78,34 @@ public class Herb : MonoBehaviour
                 }
                 //TODO:在物品旁边生成
             }
+        }
+        
+        // 设置收割后作物参数
+        // 1. 可重复收获的，重新计算生长天数，并调节作物为未成熟图片
+        // 2. 不可重复生长的，清空Tile内种子信息，重置上次收获计时器
+        if(tileDetails != null)
+        {
+            tileDetails.daysSinceLastHarvest++;
+
+            // 若有重新生长天数参数(>0) 且 总收获次数小于最大重生次数限制
+            if (herbalDetails.daysToRegrow > 0 && tileDetails.daysSinceLastHarvest < herbalDetails.maxRegrowTimes - 1)
+            {
+                // 生长天数归零
+                tileDetails.growthDays = herbalDetails.TotalGrowthDays - herbalDetails.daysToRegrow;
+                //刷新种子
+                EventHandler.CallRefreshCurrentMap();
+            }
+            else
+            {
+                tileDetails.daysSinceLastHarvest = -1;
+                tileDetails.seedItemID = -1;
+                
+                //FIXME:可设计为收获作物后将土地恢复为未耕地的样子
+                // tileDetails.daysSinceDug = -1;
+            }
+
+            // 摧毁该物体
+            Destroy(gameObject);
         }
     }
 }
