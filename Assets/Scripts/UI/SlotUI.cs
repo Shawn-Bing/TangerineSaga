@@ -18,7 +18,7 @@ namespace T_Saga
         [SerializeField] private Image slotImage;
         [SerializeField] private TextMeshProUGUI moneyAmountText;
         public Image slotHighlight;//存放代码高亮图片
-        private InventoryUI inventoryUI => GetComponentInParent<InventoryUI>();//调节代码高亮所需
+        public InventoryUI inventoryUI => GetComponentInParent<InventoryUI>();//调节代码高亮所需
         [SerializeField] private Button button;
 
         [Header("格子参数")]

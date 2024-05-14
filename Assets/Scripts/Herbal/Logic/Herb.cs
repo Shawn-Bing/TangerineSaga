@@ -142,7 +142,7 @@ public class Herb : MonoBehaviour
                     // 一定范围内随机生成
                     var spawnPos = new Vector3(transform.position.x + Random.Range(dirX, herbalDetails.spawnRadius.x * dirX),
                     transform.position.y + Random.Range(-herbalDetails.spawnRadius.y, herbalDetails.spawnRadius.y), 0);
-                    Debug.Log(spawnPos);
+                    // 测试代码：Debug.Log(spawnPos);
 
                     EventHandler.CallInstantiateItemInScene(herbalDetails.producedItemID[i], spawnPos);
                 }

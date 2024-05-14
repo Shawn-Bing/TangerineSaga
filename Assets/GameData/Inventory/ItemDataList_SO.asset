@@ -22,7 +22,7 @@ MonoBehaviour:
     canPickedUp: 1
     canDropped: 0
     canCarried: 0
-    itemUseRadius: 2
+    itemUseRadius: 1
     itemPrice: 0
     sellDiscount: 0
   - itemID: 1002
@@ -34,7 +34,7 @@ MonoBehaviour:
     canPickedUp: 1
     canDropped: 0
     canCarried: 0
-    itemUseRadius: 2
+    itemUseRadius: 1
     itemPrice: 0
     sellDiscount: 0
   - itemID: 1003
@@ -46,7 +46,7 @@ MonoBehaviour:
     canPickedUp: 1
     canDropped: 0
     canCarried: 0
-    itemUseRadius: 2
+    itemUseRadius: 1
     itemPrice: 0
     sellDiscount: 0
   - itemID: 1004
@@ -58,7 +58,7 @@ MonoBehaviour:
     canPickedUp: 1
     canDropped: 0
     canCarried: 0
-    itemUseRadius: 2
+    itemUseRadius: 1
     itemPrice: 0
     sellDiscount: 0
   - itemID: 1005
@@ -70,7 +70,7 @@ MonoBehaviour:
     canPickedUp: 1
     canDropped: 0
     canCarried: 0
-    itemUseRadius: 2
+    itemUseRadius: 1
     itemPrice: 0
     sellDiscount: 0
   - itemID: 1006
