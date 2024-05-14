@@ -190,7 +190,7 @@ MonoBehaviour:
     generateAtPlayerPosition: 0
     hasAnimation: 0
     hasParticalEffect: 0
-    effectType: 0
+    effectType: 3
     effectPos: {x: 0, y: 0, z: 0}
   - seedItemID: 1019
     growthDays: 00000000
@@ -210,6 +210,6 @@ MonoBehaviour:
     maxRegrowTimes: 0
     generateAtPlayerPosition: 0
     hasAnimation: 0
-    hasParticalEffect: 0
-    effectType: 0
+    hasParticalEffect: 1
+    effectType: 3
     effectPos: {x: 0, y: 0, z: 0}
