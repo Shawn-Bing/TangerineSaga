@@ -20,7 +20,8 @@ public class ItemTips : MonoBehaviour
     public void SetupItemTip(ItemDetails itemDetails, SlotType slotType)
     {
         textName.text = itemDetails.itemName;
-        textType.text = itemDetails.itemType.ToString();
+        textType.text = GetItemType(itemDetails.itemType);
+        //textType.text = itemDetails.itemType.ToString();
         //GetItemType(itemDetails.itemType);
         textDescription.text = itemDetails.itemDescription;
         

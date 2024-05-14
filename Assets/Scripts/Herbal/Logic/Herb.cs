@@ -52,8 +52,54 @@ public class Herb : MonoBehaviour
                 //生成农作物
                 SpawnHarvestItems();
             }
+            else if (herbalDetails.hasAnimation)
+            {
+                // 播放树木倒下，生成木材和果实
+
+                // 设置动画触发器
+                if (PlayerTransform.position.x < transform.position.x)
+                    anim.SetTrigger("FallingRight");
+                else
+                    anim.SetTrigger("FallingLeft");
+
+                // 实现砍树
+                StartCoroutine(HarvestAfterAnimation());
+            }
         }
     }
+
+    /// <summary>
+    /// 实现砍倒树，生成木材和果实
+    /// 带动画的生成木材协程
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator HarvestAfterAnimation()
+    {
+        // 播放动画
+        while (!anim.GetCurrentAnimatorStateInfo(0).IsName("End"))
+        {
+            // 循环播放倒下的动画直至播放到End
+            yield return null;
+        }
+        // 生成物品
+        SpawnHarvestItems();
+        
+        // 实现转换为新物体
+        CreateTransferHerb();
+    }
+
+    /// <summary>
+    /// 当收获作物后该物品会转换为其他物品时，获取转换后物品ID，并重置生长数据
+    /// </summary>
+    private void CreateTransferHerb()
+    {
+        tileDetails.seedItemID = herbalDetails.transferItemID;
+        tileDetails.daysSinceLastHarvest = -1;
+        tileDetails.growthDays = 0;
+
+        EventHandler.CallRefreshCurrentMap();
+    }
+
 
     /// <summary>
     /// 实现收获作物，生成果实
@@ -89,6 +135,17 @@ public class Herb : MonoBehaviour
                     EventHandler.CallHarvestAtPlayerPositionEvent(herbalDetails.producedItemID[i]);
                 }
                 //TODO:在物品旁边生成
+                else
+                {
+                    //判断应该生成的物品方向,人物在左则在右侧生成物品
+                    var dirX = transform.position.x > PlayerTransform.position.x ? 1 : -1;
+                    // 一定范围内随机生成
+                    var spawnPos = new Vector3(transform.position.x + Random.Range(dirX, herbalDetails.spawnRadius.x * dirX),
+                    transform.position.y + Random.Range(-herbalDetails.spawnRadius.y, herbalDetails.spawnRadius.y), 0);
+                    Debug.Log(spawnPos);
+
+                    EventHandler.CallInstantiateItemInScene(herbalDetails.producedItemID[i], spawnPos);
+                }
             }
         }
         
@@ -99,8 +156,6 @@ public class Herb : MonoBehaviour
         if(tileDetails != null)
         {
             tileDetails.daysSinceLastHarvest++;
-            Debug.Log("daysToRegrow = " + herbalDetails.daysToRegrow);
-            Debug.Log("daysSinceLastHarvest = " + tileDetails.daysSinceLastHarvest);
 
             // 若有重新生长天数参数(>0) 且 总收获次数小于最大重生次数限制，说明可重复收割
             if (herbalDetails.daysToRegrow > 0 && tileDetails.daysSinceLastHarvest < herbalDetails.maxRegrowTimes)
