@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5202417887916042639}
   - component: {fileID: 9107689082203337973}
   - component: {fileID: 2926794159335209602}
+  - component: {fileID: 3119024578563850658}
   m_Layer: 0
   m_Name: Tree01_Top
   m_TagString: Untagged
@@ -97,6 +98,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0036ac447741d4ef4a00db315dbe507a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3119024578563850658
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2607965743352038533}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5cf4fe17ec05045df8aec40d85b91136, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3725566955042304404
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,10 +150,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 516215455779219121}
   - {fileID: 5202417887916042639}
+  - {fileID: 516215455779219121}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &4774653686054259024
 SortingGroup:
@@ -220,6 +242,8 @@ MonoBehaviour:
     generateAtPlayerPosition: 0
     hasAnimation: 0
     hasParticalEffect: 0
+    effectType: 0
+    effectPos: {x: 0, y: 0, z: 0}
   tileDetails:
     girdX: 0
     gridY: 0

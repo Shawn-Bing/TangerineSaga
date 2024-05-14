@@ -41,6 +41,8 @@ public class Herb : MonoBehaviour
                     anim.SetTrigger("RotateLeft");
             }
             //TODO:播放粒子
+            if (herbalDetails.hasParticalEffect)
+                EventHandler.CallParticleEffectEvent(herbalDetails.effectType, transform.position + herbalDetails.effectPos);
             //TODO:播放声音
         }
 

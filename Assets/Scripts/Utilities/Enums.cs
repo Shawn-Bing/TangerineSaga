@@ -56,3 +56,9 @@ public enum GridType
 {
     Diggable, DropItem, PlaceFurniture, NPCObstacle
 }
+
+// 粒子特效
+public enum ParticleEffectType
+{
+    None, Leaves_1, Leaves_2, Rock, ReapableScenery
+}

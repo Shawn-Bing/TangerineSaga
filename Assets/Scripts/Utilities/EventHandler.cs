@@ -104,6 +104,15 @@ public static class EventHandler
     {
         RefreshCurrentMap?.Invoke();
     }
+
+    /// <summary>
+    /// 播放粒子效果（砍树时）
+    /// </summary>
+    public static event Action<ParticleEffectType, Vector3> ParticleEffectEvent;
+    public static void CallParticleEffectEvent(ParticleEffectType effectType, Vector3 pos)
+    {
+        ParticleEffectEvent?.Invoke(effectType, pos);
+    }
     #endregion
 
     #region 场景切换

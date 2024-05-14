@@ -57,6 +57,8 @@ public class HerbalDetails
     public bool generateAtPlayerPosition;
     public bool hasAnimation;
     public bool hasParticalEffect;
+    public ParticleEffectType effectType;
+    public Vector3 effectPos;
 
 
     /// <summary>
