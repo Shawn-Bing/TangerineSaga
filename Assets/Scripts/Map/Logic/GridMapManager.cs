@@ -26,11 +26,16 @@ namespace T_Saga.Map
         // 字典存放场景名，坐标和对应的瓦片信息
         private Dictionary<string, TileDetails> tileDetailsDict = new Dictionary<string, TileDetails>();
 
+        // 创建一个字典判断场景是否为首次加载
+        private Dictionary<string, bool> firstLoadDict = new Dictionary<string, bool>();
+
         private void Start()
         {
             foreach (var mapData in mapDataList)
             {
-                //将所有地图数据初始化
+                // 将所有地图标记为首次加载
+                firstLoadDict.Add(mapData.SceneName, true);
+                // 将所有地图数据初始化
                 InitTileDetailsDict(mapData);
             }
         }
@@ -52,8 +57,18 @@ namespace T_Saga.Map
             farmTilemap = GameObject.FindWithTag("FarmLand").GetComponent<Tilemap>();
             waterTilemap = GameObject.FindWithTag("FarmWater").GetComponent<Tilemap>();
 
-            // 写入地图数据（Tiles类型）也可以用Refesh
-            ShowMapDetails(SceneManager.GetActiveScene().name);
+            if (firstLoadDict[SceneManager.GetActiveScene().name])
+            {
+                // 预生成一些作物
+                EventHandler.CallGenerateHerbEvent();
+                // 切换为非首次加载
+                firstLoadDict[SceneManager.GetActiveScene().name] = false;
+            }
+            
+            // 写入地图数据（Tiles类型）也可以
+            // ShowMapDetails(SceneManager.GetActiveScene().name);
+            // 还是用Refresh罢！
+            RefreshMap();
         }
 
         /// <summary>
@@ -188,7 +203,7 @@ namespace T_Saga.Map
         /// 切换瓦片之后，更新瓦片信息到字典中
         /// </summary>
         /// <param name="tileDetails">瓦片类型</param>
-        public void UpdataTileDetails(TileDetails tileDetails)
+        public void UpdateTileDetails(TileDetails tileDetails)
         {
             string key = tileDetails.girdX + "x" + tileDetails.gridY + "y" + SceneManager.GetActiveScene().name;
             if (tileDetailsDict.ContainsKey(key))

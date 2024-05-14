@@ -24,11 +24,11 @@ MonoBehaviour:
   - itemID: 1008
     itemAmount: 10
   - itemID: 1012
-    itemAmount: 10
+    itemAmount: 16
   - itemID: 1015
-    itemAmount: 10
-  - itemID: 0
-    itemAmount: 0
+    itemAmount: 7
+  - itemID: 1003
+    itemAmount: 1
   - itemID: 0
     itemAmount: 0
   - itemID: 0

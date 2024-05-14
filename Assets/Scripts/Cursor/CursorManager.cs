@@ -190,6 +190,7 @@ public class CursorManager : MonoBehaviour
                     if(currentTile.daysSinceDug > -1 && currentTile.seedItemID == -1){SetCursorValid();}
                     else {SetCursorInValid();}
                     break;
+                case ItemType.BreakTool:
                 case ItemType.ChopTool:
                     if (herb != null && herb.CanHarvest)
                     {
@@ -263,6 +264,7 @@ public class CursorManager : MonoBehaviour
                         //更新背包内种子数量
                         EventHandler.CallDropItemEvent(itemDetails.itemID,mouseWorldPos,itemDetails.itemType);
                         break; 
+                    case ItemType.BreakTool:
                     case ItemType.ChopTool:
                         currentHerb?.ExecuteToolAction(itemDetails, currentHerb.tileDetails);
                         break;
@@ -273,7 +275,7 @@ public class CursorManager : MonoBehaviour
                 }
 
                 // 更新瓦片信息
-                GridMapManager.Instance.UpdataTileDetails(currentTile);
+                GridMapManager.Instance.UpdateTileDetails(currentTile);
             }
         }
     #endregion

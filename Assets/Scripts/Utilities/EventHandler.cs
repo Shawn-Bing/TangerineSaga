@@ -113,6 +113,12 @@ public static class EventHandler
     {
         ParticleEffectEvent?.Invoke(effectType, pos);
     }
+
+    public static event Action GenerateHerbEvent;
+    public static void CallGenerateHerbEvent()
+    {
+        GenerateHerbEvent?.Invoke();
+    }
     #endregion
 
     #region 场景切换
