@@ -700,6 +700,18 @@ MonoBehaviour:
   - holdType: 5
     partName: 3
     overrideController: {fileID: 22100000, guid: 340ebc5b3dabc44dc91ad05891b0afe4, type: 2}
+  - holdType: 7
+    partName: 3
+    overrideController: {fileID: 22100000, guid: 61b9677cf7e084d1e8eb82788df4a7e2, type: 2}
+  - holdType: 7
+    partName: 1
+    overrideController: {fileID: 22100000, guid: 027789a206c594b5291d4e8d8df19669, type: 2}
+  - holdType: 7
+    partName: 2
+    overrideController: {fileID: 22100000, guid: 529840501d6454cec83c3290573c2215, type: 2}
+  - holdType: 7
+    partName: 0
+    overrideController: {fileID: 22100000, guid: 7c6f1ac782b82443e891780c84310703, type: 2}
 --- !u!1 &588316104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1061,7 @@ Animator:
   m_GameObject: {fileID: 1015918272}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: a21859889765948e7876a455cd0fd874, type: 2}
+  m_Controller: {fileID: 22100000, guid: 6652a5894701c4423937e53e133619c2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

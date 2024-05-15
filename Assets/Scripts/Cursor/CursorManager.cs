@@ -24,6 +24,9 @@ public class CursorManager : MonoBehaviour
     private bool cursorEnable;//场景加载完毕之前禁用Cursor
     private bool cursorPositionValid;
     private ItemDetails currentItem;// 存放当前瓦片信息等
+
+    // 创建杂草列表
+    private List<ReapInRange> itemsInRadius;
     
     //获取人物组件
     private Transform PlayerTransform => FindObjectOfType<Player>().transform;
@@ -207,6 +210,10 @@ public class CursorManager : MonoBehaviour
                         else{SetCursorInValid();}
                     }
                     break;
+                case ItemType.ReapTool:
+                    if (CheckReapableItemInRange(mouseWorldPos, currentItem)) {SetCursorValid();} 
+                    else {SetCursorInValid();}
+                    break;
             }
         }
         else // 因为只标记了可丢弃物品区域，对未标注瓦片执行默认操作
@@ -272,6 +279,24 @@ public class CursorManager : MonoBehaviour
                         // 执行收获,传入itemDetails的工具类型
                         currentHerb.ExecuteToolAction(itemDetails,currentTile);
                         break;
+                    case ItemType.ReapTool:
+                        var reapCount = 0;
+                        for (int i = 0; i < itemsInRadius.Count; i++)
+                        {
+                            // 实现割草，播放粒子特效 -> 生成产物 -> 销毁杂草
+                            EventHandler.CallParticleEffectEvent(ParticleEffectType.ReapableScenery,
+                            itemsInRadius[i].transform.position + Vector3.up);
+                            
+                            // FIXME: 生成草捆
+                            // itemsInRadius[i].SpawnReapableItems();        
+                            Destroy(itemsInRadius[i].gameObject);
+                            
+                            //限制一次的收割数量
+                            reapCount++;
+                            if (reapCount >= Settings.maxReapAmountAtOneTime){break;}
+                        }
+                    // TODO:播放音效
+                        break;
                 }
 
                 // 更新瓦片信息
@@ -288,19 +313,51 @@ public class CursorManager : MonoBehaviour
     /// <param name="mouseWorldPos">鼠标坐标</param>
     /// <returns></returns>
     public Herb GetHerbObject(Vector3 mouseWorldPos)
-        {
-            //返回物品周围碰撞体
-            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos);
-            Herb currentHerb = null;
+    {
+        //返回物品周围碰撞体
+        Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos);
+        Herb currentHerb = null;
 
-            //遍历每个碰到的Herb并返回
+        //遍历每个碰到的Herb并返回
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].GetComponent<Herb>())
+                currentHerb = colliders[i].GetComponent<Herb>();
+        }
+        return currentHerb;
+    }
+
+    /// <summary>
+    /// 检测物品(杂草)是否在工具收割范围内
+    /// </summary>
+    /// <param name="mouseWorldPos">鼠标位置</param>
+    /// <param name="tool">工具信息(使用范围)</param>
+    /// <returns></returns>
+    public bool CheckReapableItemInRange(Vector3 mouseWorldPos, ItemDetails tool)
+    {
+        // 初始化列表&碰撞体列表
+        itemsInRadius = new List<ReapInRange>();
+        Collider2D[] colliders = new Collider2D[20];
+
+        // 使用快速释放的碰撞检测
+        Physics2D.OverlapCircleNonAlloc(mouseWorldPos, tool.itemUseRadius, colliders);
+
+        if (colliders.Length > 0)
+        {
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].GetComponent<Herb>())
-                    currentHerb = colliders[i].GetComponent<Herb>();
+                if (colliders[i] != null)
+                {
+                    if (colliders[i].GetComponent<ReapInRange>())
+                    {
+                        var item = colliders[i].GetComponent<ReapInRange>();
+                        itemsInRadius.Add(item);
+                    }
+                }
             }
-            return currentHerb;
         }
+        return itemsInRadius.Count > 0;
+    }
     #endregion
 
     #region Start&Update

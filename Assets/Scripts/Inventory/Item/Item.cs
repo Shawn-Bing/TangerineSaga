@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using T_Saga.Herbal;
 
 namespace T_Saga.Inventory
 {
@@ -25,6 +26,14 @@ namespace T_Saga.Inventory
                 //修改碰撞体尺寸和偏移（应对Pivot修改的情况）使其自适应icon
                 coll.size = new Vector2(spriteRenderer.sprite.bounds.size.x, spriteRenderer.sprite.bounds.size.y);
                 coll.offset = new Vector2(0, spriteRenderer.sprite.bounds.center.y);
+            }
+
+            // 收割杂草，若是杂草就为其添加组件并初始化
+            if(itemDetails.itemType == ItemType.ReapableScenery)
+            {
+                gameObject.AddComponent<ReapInRange>();
+                gameObject.AddComponent<ReapInRange>().InitHerbalData(itemDetails.itemID);
+                gameObject.AddComponent<StepInGrass>();
             }
         }
         private void Awake()

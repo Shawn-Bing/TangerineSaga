@@ -59,8 +59,10 @@ namespace T_Saga.Inventory
         /// <param name="pos">生成坐标</param>
         private void OnInstantiateItemInScene(int ID, Vector3 pos)
         {
-            var item = Instantiate(itemPrefab, pos, Quaternion.identity, itemParent);
+            //加入物品生成特效(弹跳出现)
+            var item = Instantiate(bounceItemPrefab, pos, Quaternion.identity, itemParent);
             item.itemID = ID;//给出ID即可生成物体
+            item.GetComponent<ItemBounce>().InitBounceItem(pos, Vector3.up);
         }
 
         /// <summary>
