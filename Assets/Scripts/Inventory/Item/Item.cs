@@ -32,7 +32,7 @@ namespace T_Saga.Inventory
             if(itemDetails.itemType == ItemType.ReapableScenery)
             {
                 gameObject.AddComponent<ReapInRange>();
-                gameObject.AddComponent<ReapInRange>().InitHerbalData(itemDetails.itemID);
+                gameObject.GetComponent<ReapInRange>().InitHerbalData(itemDetails.itemID);
                 gameObject.AddComponent<StepInGrass>();
             }
         }

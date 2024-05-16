@@ -288,7 +288,7 @@ public class CursorManager : MonoBehaviour
                             itemsInRadius[i].transform.position + Vector3.up);
                             
                             // FIXME: 生成草捆
-                            // itemsInRadius[i].SpawnReapableItems();        
+                            itemsInRadius[i].SpawnReapableItems();        
                             Destroy(itemsInRadius[i].gameObject);
                             
                             //限制一次的收割数量

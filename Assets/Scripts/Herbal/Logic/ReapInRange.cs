@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using T_Saga.Herbal;
 namespace T_Saga.Herbal
 {
     public class ReapInRange : MonoBehaviour
@@ -37,12 +36,7 @@ namespace T_Saga.Herbal
                 Debug.LogError("HerbalDetails is null");
                 return;
             }
-            if(herbalDetails.producedItemID == null)
-            {
-                Debug.LogError("ProducedItemID is null");
-                return;
-            }
-
+            
             for (int i = 0; i < herbalDetails.producedItemID.Length; i++)
             {
                 int spawnAmount = 0;

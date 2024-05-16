@@ -289,3 +289,27 @@ MonoBehaviour:
     itemUseRadius: 2
     itemPrice: 5
     sellDiscount: 1
+  - itemID: 1025
+    itemName: "\u91D1\u94F6\u82B1\u79CD\u5B50"
+    itemDescription: 
+    itemIcon: {fileID: 0}
+    itemType: 0
+    itemOnWorldSprite: {fileID: 0}
+    canPickedUp: 0
+    canDropped: 0
+    canCarried: 0
+    itemUseRadius: 0
+    itemPrice: 0
+    sellDiscount: 0
+  - itemID: 1026
+    itemName: "\u91D1\u94F6\u82B1"
+    itemDescription: 
+    itemIcon: {fileID: 0}
+    itemType: 1
+    itemOnWorldSprite: {fileID: 0}
+    canPickedUp: 0
+    canDropped: 0
+    canCarried: 0
+    itemUseRadius: 0
+    itemPrice: 0
+    sellDiscount: 0
