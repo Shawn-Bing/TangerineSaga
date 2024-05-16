@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using T_Saga.Dialogue;
 
 // 事件调用集
 public static class EventHandler
@@ -173,4 +174,13 @@ public static class EventHandler
     {
         ExecuteActionAfterAnimation?.Invoke(pos, itemDetails);
     }
+
+    #region 对话事件
+    public static event Action<DialoguePiece> ShowDialogueEvent;
+    public static void CallShowDialogueEvent(DialoguePiece piece)
+    {
+        ShowDialogueEvent?.Invoke(piece);
+    }
+
+    #endregion
 }

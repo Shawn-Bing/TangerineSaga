@@ -223,9 +223,9 @@ MonoBehaviour:
     harvestToolItemID: ec030000
     requireActionCount: 01000000
     transferItemID: 0
-    producedItemID: 00040000
-    producedMinAmount: 01000000
-    producedMaxAmount: 01000000
+    producedItemID: 
+    producedMinAmount: 
+    producedMaxAmount: 
     spawnRadius: {x: 0.5, y: 0.5}
     daysToRegrow: 0
     maxRegrowTimes: 0
