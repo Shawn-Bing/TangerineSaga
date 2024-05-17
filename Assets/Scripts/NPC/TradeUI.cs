@@ -11,7 +11,6 @@ namespace T_Saga.Inventory
         public InputField tradeAmount;
         public Button submitButton;
         public Button cancelButton;
-
         private ItemDetails item;
         private bool isSellTrade;
 
@@ -41,13 +40,13 @@ namespace T_Saga.Inventory
         private void TradeItem()
         {
             var amount = Convert.ToInt32(tradeAmount.text);
-
-            //InventoryManager.Instance.TradeItem(item, amount, isSellTrade);
-
+            InventoryManager.Instance.TradeItem(item, amount, isSellTrade);
             CancelTrade();
         }
 
-
+        /// <summary>
+        /// 关闭交易窗口
+        /// </summary>
         private void CancelTrade()
         {
             this.gameObject.SetActive(false);

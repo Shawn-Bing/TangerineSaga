@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace T_Saga.Inventory
 {
@@ -27,6 +28,7 @@ namespace T_Saga.Inventory
         public GameObject boxSlotPrefab;
 
         [Header("交易界面")]
+        public TextMeshProUGUI playerMoneyText;
         public TradeUI tradeUI;
 
 
@@ -181,7 +183,7 @@ namespace T_Saga.Inventory
                     break;
             }
             // TODO：更新玩家金钱
-            //playerMoneyText.text = InventoryManager.Instance.playerMoney.ToString();
+            playerMoneyText.text = InventoryManager.Instance.playerMoney.ToString();
         }
         private void Start()
         {
@@ -191,6 +193,9 @@ namespace T_Saga.Inventory
                 playerBagSlots[i].slotIndex = i;
             }
             bagOpened = playerBagUI.activeInHierarchy;//获取背包状态(是否开启)
+
+            //初始化玩家金钱
+            playerMoneyText.text = InventoryManager.Instance.playerMoney.ToString();
         }
 
         /// <summary>

@@ -13,6 +13,9 @@ namespace T_Saga.Inventory
         public ItemDataList_SO itemDataList_SO;
         [Header("背包数据")]
         public InventoryRepo_SO playerBag;
+        [Header("交易")]
+        //引擎中给玩家初始资金
+        public int playerMoney;
 
 
         #region 注册扔出物品、收获作物事件
@@ -194,6 +197,44 @@ namespace T_Saga.Inventory
             }
 
             //  更新背包
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.PlayerBag, playerBag.itemList);
+        }
+
+        /// <summary>
+        /// 实现交易物品
+        /// </summary>
+        /// <param name="itemDetails">物品信息</param>
+        /// <param name="amount">交易数量</param>
+        /// <param name="isSellTrade">买or卖</param>
+        public void TradeItem(ItemDetails itemDetails, int amount, bool isSellTrade)
+        {
+            // 提前计算金额
+            int cost = itemDetails.itemPrice * amount;
+
+            // 获得物品背包位置
+            int index = GetItemIndexInBag(itemDetails.itemID);
+
+            // 卖出物品
+            if (isSellTrade)    
+            {
+                if (playerBag.itemList[index].itemAmount >= amount)
+                {
+                    RemoveItem(itemDetails.itemID, amount);
+                    //卖出总价
+                    cost = (int)(cost * itemDetails.sellDiscount);
+                    playerMoney += cost;
+                }
+            }
+            // 购买物品
+            else if (playerMoney - cost >= 0)
+            {
+                if (CheckBagCapacity())
+                {
+                    AddItemAtIndex(itemDetails.itemID, index, amount);
+                }
+                playerMoney -= cost;
+            }
+            //刷新UI
             EventHandler.CallUpdateInventoryUI(InventoryLocation.PlayerBag, playerBag.itemList);
         }
     
