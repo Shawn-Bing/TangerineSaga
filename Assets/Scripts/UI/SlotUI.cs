@@ -155,8 +155,7 @@ namespace T_Saga.Inventory
                 {
                     EventHandler.CallShowTradeUI(itemDetails, true);
                 }
-
-                //TODO: 储物箱
+                //TODO:储物箱
                 
                 // 取消所有高亮
                 inventoryUI.UpdateSlotHighlight(-1);
