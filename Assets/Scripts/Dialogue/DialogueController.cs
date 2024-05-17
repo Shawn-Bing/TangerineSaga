@@ -72,17 +72,20 @@ namespace T_Saga.Dialogue
             isTalking = true;
             if (dailogueStack.TryPop(out DialoguePiece result))
             {
-                //传到UI显示对话
+                //传到UI显示对话并禁用玩家输入
                 EventHandler.CallShowDialogueEvent(result);
+                EventHandler.CallUpdateGameStateEvent(GameState.Pause);
                 yield return new WaitUntil(() => result.isDone);
                 isTalking = false;
             }
             else
             {
+                EventHandler.CallUpdateGameStateEvent(GameState.Gameplay);
                 EventHandler.CallShowDialogueEvent(null);
                 FillDialogueStack();
                 isTalking = false;
 
+                //开启对话后不允许重复进入对话
                 if (OnFinishEvent != null)
                 {
                     OnFinishEvent.Invoke();

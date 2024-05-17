@@ -104,6 +104,7 @@ public class Player : MonoBehaviour
         EventHandler.AfterSceneLoadEvent += OnAfterSceneLoadEvent;
         EventHandler.MoveToPosition += OnMoveToPosition;
         EventHandler.MouseClickedEvent += OnMouseClickedEvent;
+        EventHandler.UpdateGameStateEvent += OnUpdateGameStateEvent;
     }
 
 
@@ -113,6 +114,7 @@ public class Player : MonoBehaviour
         EventHandler.AfterSceneLoadEvent -= OnAfterSceneLoadEvent;
         EventHandler.MoveToPosition -= OnMoveToPosition;
         EventHandler.MouseClickedEvent -= OnMouseClickedEvent;
+        EventHandler.UpdateGameStateEvent -= OnUpdateGameStateEvent;
     }
 
     private void OnBeforeSceneUnloadEvent()
@@ -128,6 +130,19 @@ public class Player : MonoBehaviour
     private void OnMoveToPosition(Vector3 targetPosition)
     {
         transform.position = targetPosition;
+    }
+
+    private void OnUpdateGameStateEvent(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.Gameplay:
+                canPlayerMove = true;
+                break;
+            case GameState.Pause:
+                canPlayerMove = false;
+                break;
+        }
     }
 
     /// <summary>

@@ -13,17 +13,27 @@ namespace T_Saga.Inventory
         public ItemTips itemTips;
 
         [Header("拖拽图片")]
-        //记得在InventoryUI中给它赋值
+        //TODO:记得在InventoryUI中给它赋值
         //拖拽图Image属性不要勾选RayCast Target否则拖拽过程中遇到物体就会中断拖拽
         public Image dragItem;
         
         [Header("玩家背包UI")]
-        [SerializeField] private GameObject bagUI;
+        [SerializeField] private GameObject playerBagUI;
         private bool bagOpened;
         
+        [Header("其他背包")]
+        [SerializeField] private GameObject baseBagUI;
+        public GameObject shopSlotPrefab;
+        public GameObject boxSlotPrefab;
+
+        [Header("交易界面")]
+        public TradeUI tradeUI;
+
+
         [Header("背包格子")]
         // 最好固定为26
-        [SerializeField] private SlotUI[] playerSlots;
+        [SerializeField] private SlotUI[] playerBagSlots;
+        [SerializeField] private List<SlotUI> baseBagSlots;
         #endregion
         
 
@@ -32,12 +42,18 @@ namespace T_Saga.Inventory
         {
             EventHandler.UpdateInventoryUI += OnUpdateInventoryUI;
             EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+            EventHandler.BaseBagOpenEvent += OnBaseBagOpenEvent;
+            EventHandler.BaseBagCloseEvent += OnBaseBagCloseEvent;
+            EventHandler.ShowTradeUI += OnShowTradeUI;
         }
 
         private void OnDisable()
         {
             EventHandler.UpdateInventoryUI -= OnUpdateInventoryUI;
             EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+            EventHandler.BaseBagOpenEvent -= OnBaseBagOpenEvent;
+            EventHandler.BaseBagCloseEvent -= OnBaseBagCloseEvent;
+            EventHandler.ShowTradeUI -= OnShowTradeUI;
         }
 
         /// <summary>
@@ -47,6 +63,82 @@ namespace T_Saga.Inventory
         {
             UpdateSlotHighlight(-1);
         }
+
+        /// <summary>
+        /// 打开商店或箱子事件
+        /// </summary>
+        /// <param name="slotType"></param>
+        /// <param name="bagData"></param>
+        private void OnBaseBagOpenEvent(SlotType slotType, InventoryRepo_SO bagData)
+        {
+            GameObject prefab = slotType switch
+            {
+                SlotType.Shop => shopSlotPrefab,
+                SlotType.Box => boxSlotPrefab,
+                _ => null,
+            };
+
+            //生成背包UI
+            baseBagUI.SetActive(true);
+
+            baseBagSlots = new List<SlotUI>();
+
+            for (int i = 0; i < bagData.itemList.Count; i++)
+            {
+                var slot = Instantiate(prefab, baseBagUI.transform.GetChild(0)).GetComponent<SlotUI>();
+                slot.slotIndex = i;
+                baseBagSlots.Add(slot);
+            }
+            //强制刷新
+            LayoutRebuilder.ForceRebuildLayoutImmediate(baseBagUI.GetComponent<RectTransform>());
+
+            if (slotType == SlotType.Shop)
+            {
+                playerBagUI.GetComponent<RectTransform>().pivot = new Vector2(-1, 0.5f);
+                playerBagUI.SetActive(true);
+                bagOpened = true;
+            }
+            //更新UI显示
+            OnUpdateInventoryUI(InventoryLocation.Box, bagData.itemList);
+        }
+
+        /// <summary>
+        /// 关闭商店或箱子
+        /// </summary>
+        /// <param name="slotType"></param>
+        /// <param name="bagData"></param>
+        private void OnBaseBagCloseEvent(SlotType slotType, InventoryRepo_SO bagData)
+        {
+            baseBagUI.SetActive(false);
+            itemTips.gameObject.SetActive(false);
+            UpdateSlotHighlight(-1);
+
+            foreach (var slot in baseBagSlots)
+            {
+                Destroy(slot.gameObject);
+            }
+            baseBagSlots.Clear();
+
+            if (slotType == SlotType.Shop)
+            {
+                playerBagUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                playerBagUI.SetActive(false);
+                bagOpened = false;
+            }
+        }
+
+
+        /// <summary>
+        /// 显示交易界面
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="isSell"></param>
+        private void OnShowTradeUI(ItemDetails item, bool isSell)
+        {
+            tradeUI.gameObject.SetActive(true);
+            tradeUI.SetUpTradeUI(item, isSell);
+        }
+
         #endregion
 
         /// <summary>
@@ -59,29 +151,46 @@ namespace T_Saga.Inventory
             switch (location)
             {
                 case InventoryLocation.PlayerBag:
-                    for (int i = 0; i < playerSlots.Length; i++)
+                    for (int i = 0; i < playerBagSlots.Length; i++)
                     {
                         if (list[i].itemAmount > 0)//只有数量>0才更新
                         {
                             var item = InventoryManager.Instance.GetItemDetails(list[i].itemID);
-                            playerSlots[i].UpdateSlot(item, list[i].itemAmount);
+                            playerBagSlots[i].UpdateSlot(item, list[i].itemAmount);
                         }
                         else
                         {
-                            playerSlots[i].UpdateEmptySlot();
+                            playerBagSlots[i].UpdateEmptySlot();
+                        }
+                    }
+                    break;
+                case InventoryLocation.Box:
+                case InventoryLocation.Shop:
+                    for (int i = 0; i < baseBagSlots.Count; i++)
+                    {
+                        if (list[i].itemAmount > 0)
+                        {
+                            var item = InventoryManager.Instance.GetItemDetails(list[i].itemID);
+                            baseBagSlots[i].UpdateSlot(item, list[i].itemAmount);
+                        }
+                        else
+                        {
+                            baseBagSlots[i].UpdateEmptySlot();
                         }
                     }
                     break;
             }
+            // TODO：更新玩家金钱
+            //playerMoneyText.text = InventoryManager.Instance.playerMoney.ToString();
         }
         private void Start()
         {
-            for (int i = 0; i < playerSlots.Length; i++)
+            for (int i = 0; i < playerBagSlots.Length; i++)
             {
                 // 获取playerBag里的Slot序号并连接到UI部分
-                playerSlots[i].slotIndex = i;
+                playerBagSlots[i].slotIndex = i;
             }
-            bagOpened = bagUI.activeInHierarchy;//获取背包状态(是否开启)
+            bagOpened = playerBagUI.activeInHierarchy;//获取背包状态(是否开启)
         }
 
         /// <summary>
@@ -94,21 +203,23 @@ namespace T_Saga.Inventory
                 OpenBagUI();
             }
         }
+
         /// <summary>
         /// 切换打开&关闭背包UI
         /// </summary>
         public void OpenBagUI()
         {
             bagOpened = !bagOpened;
-            bagUI.SetActive(bagOpened);
+            playerBagUI.SetActive(bagOpened);
         }
+
         /// <summary>
         /// 更新高亮并使高亮唯一
         /// </summary>
         /// <param name="index"></param>
         public void UpdateSlotHighlight(int index)
         {
-            foreach (var slot in playerSlots)
+            foreach (var slot in playerBagSlots)
             {
                 // 若格子被选中 且 格子编号=传入编号
                 if(slot.isSelected && slot.slotIndex == index)

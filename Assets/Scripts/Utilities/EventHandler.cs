@@ -176,11 +176,48 @@ public static class EventHandler
     }
 
     #region 对话事件
+    /// <summary>
+    /// 显示对话
+    /// </summary>
     public static event Action<DialoguePiece> ShowDialogueEvent;
     public static void CallShowDialogueEvent(DialoguePiece piece)
     {
         ShowDialogueEvent?.Invoke(piece);
     }
 
+    //商店开启
+    public static event Action<SlotType, InventoryRepo_SO> BaseBagOpenEvent;
+    public static void CallBaseBagOpenEvent(SlotType slotType, InventoryRepo_SO bag_SO)
+    {
+        BaseBagOpenEvent?.Invoke(slotType, bag_SO);
+    }
+
+    public static event Action<SlotType, InventoryRepo_SO> BaseBagCloseEvent;
+    public static void CallBaseBagCloseEvent(SlotType slotType, InventoryRepo_SO bag_SO)
+    {
+        BaseBagCloseEvent?.Invoke(slotType, bag_SO);
+    }
+
+    
+    public static event Action<ItemDetails, bool> ShowTradeUI;
+    /// <summary>
+    /// 显示交易面板
+    /// </summary>
+    /// <param name="item">物品</param>
+    /// <param name="isSell">买</param>
+    public static void CallShowTradeUI(ItemDetails item, bool isSell)
+    {
+        ShowTradeUI?.Invoke(item, isSell);
+    }
+
     #endregion
+
+    /// <summary>
+    /// 游戏暂停事件
+    /// </summary>
+    public static event Action<GameState> UpdateGameStateEvent;
+    public static void CallUpdateGameStateEvent(GameState gameState)
+    {
+        UpdateGameStateEvent?.Invoke(gameState);
+    }
 }

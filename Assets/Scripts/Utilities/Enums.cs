@@ -28,7 +28,7 @@ public enum SlotType
 //UI更新位置
 public enum InventoryLocation
 {
-    PlayerBag, Box,
+    PlayerBag, Box,Shop,
 }
 
 // 人物举起状态
@@ -61,4 +61,10 @@ public enum GridType
 public enum ParticleEffectType
 {
     None, Leaves_1, Leaves_2, Rock, ReapableScenery
+}
+
+//游戏状态
+public enum GameState
+{
+    Gameplay, Pause
 }

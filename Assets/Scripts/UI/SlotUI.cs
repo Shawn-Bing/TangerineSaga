@@ -4,7 +4,7 @@ using TMPro;//TextMeshPro
 using UnityEngine.EventSystems;
 using T_Saga.Inventory;//Click事件
 
-namespace T_Saga
+namespace T_Saga.Inventory
 {
     //SlotUI继承的都是Unity已写好的事件
     public class SlotUI : MonoBehaviour,
@@ -142,6 +142,21 @@ namespace T_Saga
                 {
                     InventoryManager.Instance.SwapItem(slotIndex, targetIndex);
                 }
+                
+                //拖拽范围是商店和玩家背包之间
+
+                // 1.以玩家背包为拖拽终点，是购买物品
+                else if (slotType == SlotType.Shop && targetSlot.slotType == SlotType.PlayerBag)
+                {
+                    EventHandler.CallShowTradeUI(itemDetails, false);
+                }
+                // 2.以商店背包为拖拽终点，是售卖物品
+                else if (slotType == SlotType.PlayerBag && targetSlot.slotType == SlotType.Shop)
+                {
+                    EventHandler.CallShowTradeUI(itemDetails, true);
+                }
+
+                //TODO: 储物箱
                 
                 // 取消所有高亮
                 inventoryUI.UpdateSlotHighlight(-1);

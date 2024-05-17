@@ -291,25 +291,25 @@ MonoBehaviour:
     sellDiscount: 1
   - itemID: 1025
     itemName: "\u91D1\u94F6\u82B1\u79CD\u5B50"
-    itemDescription: 
-    itemIcon: {fileID: 0}
+    itemDescription: "\u53EF\u4EE5\u79CD\u51FA\u91D1\u94F6\u82B1"
+    itemIcon: {fileID: 21300000, guid: a9ed9ebb7d7ea46f5bef83e9e0f57f2e, type: 3}
     itemType: 0
-    itemOnWorldSprite: {fileID: 0}
-    canPickedUp: 0
-    canDropped: 0
-    canCarried: 0
-    itemUseRadius: 0
-    itemPrice: 0
-    sellDiscount: 0
+    itemOnWorldSprite: {fileID: 21300000, guid: a9ed9ebb7d7ea46f5bef83e9e0f57f2e, type: 3}
+    canPickedUp: 1
+    canDropped: 1
+    canCarried: 1
+    itemUseRadius: 2
+    itemPrice: 20
+    sellDiscount: 0.8
   - itemID: 1026
     itemName: "\u91D1\u94F6\u82B1"
-    itemDescription: 
-    itemIcon: {fileID: 0}
+    itemDescription: "\u4E5F\u79F0\u5FCD\u51AC\uFF0C\u6027\u7518\u5BD2\uFF0C\u6C14\u82B3\u9999"
+    itemIcon: {fileID: 21300000, guid: 9d77d92f7e0194e768d110ccbf25b1e5, type: 3}
     itemType: 1
-    itemOnWorldSprite: {fileID: 0}
-    canPickedUp: 0
-    canDropped: 0
-    canCarried: 0
-    itemUseRadius: 0
-    itemPrice: 0
-    sellDiscount: 0
+    itemOnWorldSprite: {fileID: 21300000, guid: 9d77d92f7e0194e768d110ccbf25b1e5, type: 3}
+    canPickedUp: 1
+    canDropped: 1
+    canCarried: 1
+    itemUseRadius: 2
+    itemPrice: 30
+    sellDiscount: 0.9
