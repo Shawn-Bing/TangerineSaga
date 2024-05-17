@@ -9,42 +9,88 @@ using T_Saga.Dialogue;
 public static class EventHandler
 {
 
-    #region 背包
+    #region 背包&生成物品
+    public static event Action<InventoryLocation, List<InventoryItem>> UpdateInventoryUI;
     /// <summary>
     /// 更新目标位置(背包等)的UI
     /// </summary>
-    public static event Action<InventoryLocation, List<InventoryItem>> UpdateInventoryUI;
+    /// <param name="location">鼠标所在位置</param>
+    /// <param name="list">物品列表</param>
     public static void CallUpdateInventoryUI(InventoryLocation location, List<InventoryItem> list)
     {
         UpdateInventoryUI?.Invoke(location, list);
     }
 
-    /// <summary>
-    /// 生成物品
-    /// </summary>
     public static event Action<int, Vector3> InstantiateItemInScene;
+    /// <summary>
+    /// 在场景中的某个位置生成物品
+    /// </summary>
+    /// <param name="ID">物品ID</param>
+    /// <param name="pos">位置</param>
     public static void CallInstantiateItemInScene(int ID, Vector3 pos)
     {
         InstantiateItemInScene?.Invoke(ID, pos);
     }
 
-    /// <summary>
-    /// 选中物品
-    /// </summary>
     public static event Action<ItemDetails, bool> ItemSelectedEvent;
+    /// <summary>
+    /// 物品选中事件
+    /// </summary>
+    /// <param name="itemDetails"></param>
+    /// <param name="isSelected"></param>
     public static void CallItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
     {
         ItemSelectedEvent?.Invoke(itemDetails, isSelected);
     }
 
-    /// <summary>
-    /// 扔出物品(从背包)
-    /// </summary>
     public static event Action<int, Vector3, ItemType> DropItemEvent;
+    /// <summary>
+    /// 从背包扔出物品
+    /// </summary>
+    /// <param name="ID">物品ID</param>
+    /// <param name="pos">鼠标位置</param>
+    /// <param name="itemType">物品类型</param>
     public static void CallDropItemEvent(int ID, Vector3 pos, ItemType itemType)
     {
         DropItemEvent?.Invoke(ID, pos, itemType);
     }
+    #endregion
+
+    #region 交易物品
+    public static event Action<SlotType, InventoryRepo_SO> BaseBagOpenEvent;
+    /// <summary>
+    /// 打开背包事件
+    /// </summary>
+    /// <param name="slotType"></param>
+    /// <param name="bag_SO"></param>
+    public static void CallBaseBagOpenEvent(SlotType slotType, InventoryRepo_SO bag_SO)
+    {
+        BaseBagOpenEvent?.Invoke(slotType, bag_SO);
+    }
+
+    public static event Action<SlotType, InventoryRepo_SO> BaseBagCloseEvent;
+    /// <summary>
+    /// 关闭背包事件
+    /// </summary>
+    /// <param name="slotType"></param>
+    /// <param name="bag_SO"></param>
+    public static void CallBaseBagCloseEvent(SlotType slotType, InventoryRepo_SO bag_SO)
+    {
+        BaseBagCloseEvent?.Invoke(slotType, bag_SO);
+    }
+
+    
+    public static event Action<ItemDetails, bool> ShowTradeUI;
+    /// <summary>
+    /// 显示交易面板
+    /// </summary>
+    /// <param name="item">物品</param>
+    /// <param name="isSell">买</param>
+    public static void CallShowTradeUI(ItemDetails item, bool isSell)
+    {
+        ShowTradeUI?.Invoke(item, isSell);
+    }
+
     #endregion
 
     #region 时间
@@ -175,7 +221,7 @@ public static class EventHandler
         ExecuteActionAfterAnimation?.Invoke(pos, itemDetails);
     }
 
-    #region 对话事件
+    #region 对话
     /// <summary>
     /// 显示对话
     /// </summary>
@@ -184,33 +230,9 @@ public static class EventHandler
     {
         ShowDialogueEvent?.Invoke(piece);
     }
-
-    //商店开启
-    public static event Action<SlotType, InventoryRepo_SO> BaseBagOpenEvent;
-    public static void CallBaseBagOpenEvent(SlotType slotType, InventoryRepo_SO bag_SO)
-    {
-        BaseBagOpenEvent?.Invoke(slotType, bag_SO);
-    }
-
-    public static event Action<SlotType, InventoryRepo_SO> BaseBagCloseEvent;
-    public static void CallBaseBagCloseEvent(SlotType slotType, InventoryRepo_SO bag_SO)
-    {
-        BaseBagCloseEvent?.Invoke(slotType, bag_SO);
-    }
-
-    
-    public static event Action<ItemDetails, bool> ShowTradeUI;
-    /// <summary>
-    /// 显示交易面板
-    /// </summary>
-    /// <param name="item">物品</param>
-    /// <param name="isSell">买</param>
-    public static void CallShowTradeUI(ItemDetails item, bool isSell)
-    {
-        ShowTradeUI?.Invoke(item, isSell);
-    }
-
     #endregion
+
+    #region 游戏进度
 
     /// <summary>
     /// 游戏暂停事件
@@ -220,4 +242,5 @@ public static class EventHandler
     {
         UpdateGameStateEvent?.Invoke(gameState);
     }
+    #endregion
 }
